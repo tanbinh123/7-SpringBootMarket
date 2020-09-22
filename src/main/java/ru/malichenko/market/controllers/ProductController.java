@@ -2,6 +2,9 @@ package ru.malichenko.market.controllers;
 
 
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -25,12 +28,15 @@ public class ProductController {
         model.addAttribute("products", productService.findAll(page - 1, 5));
         return "products";
     }
-
+//http://localhost:8189/market/products/filter?min=21&max=40&p=6
     @GetMapping("/filter")
     public String showAllProducts(Model model,
                                   @RequestParam(defaultValue = "21", name = "min") Long min,
-                                  @RequestParam(defaultValue = "40", name = "max") Long max) {
-        model.addAttribute("products", productService.findAllByPriceGreaterThanEqualAndPriceLessThanEqual(min,max));
+                                  @RequestParam(defaultValue = "40", name = "max") Long max,
+                                  @RequestParam(defaultValue = "1", name = "p") Integer page) {
+        if (page < 1) page = 1;
+        Pageable pages = PageRequest.of(page-1, 4);
+        model.addAttribute("products", productService.findAllByPriceGreaterThanEqualAndPriceLessThanEqual(min, max, pages));
         return "products";
     }
 
