@@ -20,6 +20,11 @@ public class ProductService {
         return productRepository.findAll(PageRequest.of(page, size));
     }
 
+    public List<Product> findAllByPriceGreaterThanEqualAndPriceLessThanEqual(Long minPrice, Long maxPrice){
+        return productRepository.findAllByPriceGreaterThanEqualAndPriceLessThanEqual(minPrice,maxPrice);
+    }
+
+
     public Optional<Product> findById(Long id){
         return productRepository.findById(id);
     }

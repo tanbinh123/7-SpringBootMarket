@@ -17,40 +17,33 @@ public class ProductController {
     private ProductService productService;
 
     @GetMapping
-    public String showAllProducts(Model model, @RequestParam(defaultValue = "1",name ="p") Integer page) {
+    public String showAllProducts(Model model,
+                                  @RequestParam(defaultValue = "1", name = "p") Integer page) {
         if (page < 1) {
             page = 1;
         }
         model.addAttribute("products", productService.findAll(page - 1, 5));
         return "products";
     }
+
+    @GetMapping("/filter")
+    public String showAllProducts(Model model,
+                                  @RequestParam(defaultValue = "21", name = "min") Long min,
+                                  @RequestParam(defaultValue = "40", name = "max") Long max) {
+        model.addAttribute("products", productService.findAllByPriceGreaterThanEqualAndPriceLessThanEqual(min,max));
+        return "products";
+    }
+
     @GetMapping("/{id}")
     @ResponseBody
     public Product getOneProductById(@PathVariable Long id) {
-        return productService.findById(id).orElseThrow(()-> new ResourceNotFoundException("Product with id: "+id +" doesn't exists"));
+        return productService.findById(id).orElseThrow(() -> new ResourceNotFoundException("Product with id: " + id + " doesn't exists"));
     }
+
+    //этот метод не из дз, можно не смотреть
     @GetMapping("/dto/{id}")
     @ResponseBody
     public ProductDto showOneProduct(Model model, @PathVariable Long id) {
         return productService.findDtoById(id).get();
     }
-//    @GetMapping
-//    @ResponseBody
-//    public List<Customer>  firstRequest() {
-//        List<Customer> customers = customerRepository.findAll();
-////        return  Collections.singletonList(customerRepository.findByName("Bob"));
-//        return customers;
-//    }
-//    @GetMapping
-//    @RequestMapping("/market")
-//    @ResponseBody
-//    public List<Customer>  marketRequest() {
-////        List<Customer> customers = customerRepository.findAll();
-////        List<Customer> customers = customerRepository.findAllByIdGreaterThan(1L);
-////        List<Customer> customers = customerRepository.findAllByIdGreaterThanOrderByIdDesc(1L);
-////        return  Collections.singletonList(customerRepository.findByName("Bob"));
-////        return  Collections.singletonList(customerRepository.findByNameHql("Bob"));
-////        return customers;
-//
-//    }
 }

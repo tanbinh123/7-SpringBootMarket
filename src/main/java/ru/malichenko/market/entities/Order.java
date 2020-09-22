@@ -23,6 +23,6 @@ public class Order {
     @JoinColumn(name = "product_id")
     private Product product;
 
-    @Column(name = "currentPrice")
+    @Column(name = "current_price")
     private int currentPrice;
 }
