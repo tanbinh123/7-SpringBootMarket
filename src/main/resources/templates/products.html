@@ -16,8 +16,9 @@
 <div class="container">
     <div th:replace="~{navigation :: navigationPanel(Products)}" />
     <h1>Каталог товаров</h1>
-    <table class="table table-hover">
-        <thead class="thead-dark">
+    <span th:if="${products.isEmpty()}"> <h2 class="text-warning">Продуктов нет</h2></span>
+    <table class="table table-hover" th:if="${!products.isEmpty()}">
+        <thead>
         <tr>
             <th>ID</th>
             <th>Название</th>
@@ -32,6 +33,14 @@
         </tr>
         </tbody>
     </table>
+    <hr color="Green"/>
+    <h2 class="text-success">Установить фильтр по цене товара</h2>
+    <form method="GET" th:action="@{'/products/filter'}">
+        <input type="number" name="min" placeholder="min 21 price">
+        <input type="number" name="max" placeholder="max 40 price">
+        <button class="btn btn-primary" type="submit">Применить фильтр</button>
+    </form>
+    <hr color="Green"/>
 </div>
 
 </body>
