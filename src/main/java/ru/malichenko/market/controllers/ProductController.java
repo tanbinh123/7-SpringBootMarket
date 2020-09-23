@@ -2,6 +2,7 @@ package ru.malichenko.market.controllers;
 
 
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -12,6 +13,10 @@ import ru.malichenko.market.dto.ProductDto;
 import ru.malichenko.market.entities.Product;
 import ru.malichenko.market.exceptions.ResourceNotFoundException;
 import ru.malichenko.market.services.ProductService;
+import ru.malichenko.market.utils.ProductFilter;
+
+import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/products")
@@ -21,22 +26,15 @@ public class ProductController {
 
     @GetMapping
     public String showAllProducts(Model model,
-                                  @RequestParam(defaultValue = "1", name = "p") Integer page) {
-        if (page < 1) {
-            page = 1;
-        }
-        model.addAttribute("products", productService.findAll(page - 1, 5));
-        return "products";
-    }
-//http://localhost:8189/market/products/filter?min=21&max=40&p=6
-    @GetMapping("/filter")
-    public String showAllProducts(Model model,
-                                  @RequestParam(defaultValue = "21", name = "min") Long min,
-                                  @RequestParam(defaultValue = "40", name = "max") Long max,
-                                  @RequestParam(defaultValue = "1", name = "p") Integer page) {
+                                  @RequestParam(defaultValue = "1", name = "p") Integer page,
+                                  @RequestParam Map<String,String> params) {
         if (page < 1) page = 1;
-        Pageable pages = PageRequest.of(page-1, 4);
-        model.addAttribute("products", productService.findAllByPriceGreaterThanEqualAndPriceLessThanEqual(min, max, pages));
+        ProductFilter productFilter = new ProductFilter(params);
+        Page<Product> products = productService.findAll(productFilter.getSpec(), page-1, 5);
+        model.addAttribute("products", products);
+        model.addAttribute("filterDefinition", productFilter.getFilterDefinition());
+        //model.addAttribute("products", productService.findAllByPriceGreaterThanEqualAndPriceLessThanEqual(minPrice, maxPrice, PageRequest.of(page-1, 4)));
+        //model.addAttribute("allProducts", productService.findAllByPriceBetween(minPrice, maxPrice));
         return "products";
     }
 
