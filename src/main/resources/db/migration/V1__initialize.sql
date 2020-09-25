@@ -12,8 +12,8 @@ create table products (
 
 create table orders (
     id                      bigserial primary key,
-    customer_id             bigint references customers(id),
-    product_id              bigint references products(id),
+    customer_id             bigint references customers(id) ON DELETE CASCADE,
+    product_id              bigint references products(id) ON DELETE CASCADE,
     current_price           int
 );
 
@@ -43,9 +43,31 @@ values
 ('salt', 37),
 ('bread', 38),
 ('eggs', 39),
-('chocolate', 40);
+('chocolate', 40),
+('loaf1', 121),
+('hamburger1', 122),
+('yoghurt1', 123),
+('pastry1', 124),
+('tin1', 125),
+('candy1', 126),
+('marmalade1', 127),
+('butter1', 128),
+('honey1', 129),
+('milk1', 131),
+('olives1', 132),
+('pepper1', 133),
+('biscuit1', 134),
+('sugar1', 135),
+('cream1', 136),
+('salt1', 137),
+('bread1', 138),
+('eggs1', 139),
+('chocolate1', 140);
 
 
 insert into orders (customer_id, product_id, current_price)
 values
-(1, 1, 24);
+(1, 1, 244),
+(1, 2, 243),
+(2, 2, 242),
+(3, 3, 245);

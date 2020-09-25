@@ -11,22 +11,22 @@
 <div class="container">
     <div th:replace="~{navigation :: navigationPanel(Products)}"/>
     <h1>Каталог товаров</h1>
-    <span th:if="${products.isEmpty()}"> <h2 class="text-warning">Продуктов нет</h2></span>
+    <span th:if="${products.isEmpty()}" class="text-warning">Продуктов нет</span>
     <hr color="Green"/>
     <h3 class="text-success">Установить фильтр</h3>
     <form method="GET" th:action="@{/products}">
         <div class="form-group col-md-6">
-            <label for="titleInput">Название</label>
+            <label for="titleInput">Название:</label>
             <input class="form-control" th:value="${param.title != null ? param.title : null}" name="title" type="text"
                    id="titleInput">
         </div>
         <div class="form-group col-md-6">
-            <label for="minPriceInput">Минимальная цена</label>
+            <label for="minPriceInput">Минимальная цена:</label>
             <input class="form-control" th:value="${param.min_price != null ? param.min_price : null}" name="min_price"
                    type="number" id="minPriceInput">
         </div>
         <div class="form-group col-md-6">
-            <label for="maxPriceInput">Максимальная цена</label>
+            <label for="maxPriceInput">Максимальная цена:</label>
             <input class="form-control" th:value="${param.max_price != null ? param.max_price : null}" name="max_price"
                    type="number" id="maxPriceInput">
         </div>
@@ -35,7 +35,7 @@
     </form>
     <hr color="Green"/>
 
-    <!--    <span th:if="${!products.isEmpty()}" th:text="${'Всего продуктов с учетом фильтра: '+ allProducts.size()}"></span>-->
+    <!--    <span th:if="${!products.isEmpty()}" th:text="${'Всего продуктов *с учетом фильтра: '+ allProducts.size()}"></span>-->
     <table class="table table-hover" th:if="${!products.isEmpty()}">
         <thead>
         <tr>
@@ -49,6 +49,11 @@
             <td th:text="${p.id}"/>
             <td th:text="${p.title}"/>
             <td th:text="${p.price}"/>
+            <td>
+<!--                <a type="button" class="btn btn-primary" th:href="@{'/cart/add_product/' + ${p.id}}">Добавить в корзину</a>-->
+                <a type="button" class="btn btn-warning" th:href="@{'/products/edit/' + ${p.id}}">Редактировать</a>
+                <a type="button" class="btn btn-danger" th:href="@{'/products/delete/' + ${p.id}}">Удалить из каталога</a>
+            </td>
         </tr>
         </tbody>
     </table>
@@ -61,15 +66,18 @@
 
             <li class="page-item" th:classappend="${products.getNumber() + 1 == i ? 'active' : ''}"
                 th:each="i : ${#numbers.sequence(1, products.getTotalPages())}">
-                <a class="page-link" th:text="${i}" th:href="@{'/products?p=' + ${i} + ${filterDefinition}}"></a>
-            </li>
 
+                <a th:if="${i >= products.getNumber() - 1 && i <= products.getNumber() + 3||i==1||i==products.getTotalPages()}"
+                   class="page-link" th:text="${i}" th:href="@{'/products?p=' + ${i} + ${filterDefinition}}"></a>
+
+            </li>
             <li class="page-item"  th:classappend="${products.isLast() ? 'disabled' : ''}">
                 <a class="page-link"
                    th:href="@{'/products?p='+ ${products.nextOrLastPageable().getPageNumber() + 1} + ${filterDefinition}}">Вперед</a>
             </li>
         </ul>
     </nav>
+    <a type="button" class="btn btn-primary" th:href="@{'/products/add/'}">Добавить новый товар</a>
 </div>
 </body>
 </html>
