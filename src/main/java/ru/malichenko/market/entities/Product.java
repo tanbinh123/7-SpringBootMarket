@@ -19,9 +19,6 @@ public class Product {
     @Column(name = "title")
     private String title;
 
-    @OneToMany(mappedBy = "product")
-    private List<Order> orders;
-
     @Column(name = "price")
-    private Long price;
+    private int price;
 }

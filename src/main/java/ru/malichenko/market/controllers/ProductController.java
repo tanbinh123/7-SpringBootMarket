@@ -3,9 +3,6 @@ package ru.malichenko.market.controllers;
 
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -15,7 +12,6 @@ import ru.malichenko.market.exceptions.ResourceNotFoundException;
 import ru.malichenko.market.services.ProductService;
 import ru.malichenko.market.utils.ProductFilter;
 
-import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -33,8 +29,6 @@ public class ProductController {
         Page<Product> products = productService.findAll(productFilter.getSpec(), page-1, 5);
         model.addAttribute("products", products);
         model.addAttribute("filterDefinition", productFilter.getFilterDefinition());
-        //model.addAttribute("products", productService.findAllByPriceGreaterThanEqualAndPriceLessThanEqual(minPrice, maxPrice, PageRequest.of(page-1, 4)));
-        //model.addAttribute("allProducts", productService.findAllByPriceBetween(minPrice, maxPrice));
         return "products";
     }
 
@@ -42,6 +36,34 @@ public class ProductController {
     @ResponseBody
     public Product getOneProductById(@PathVariable Long id) {
         return productService.findById(id).orElseThrow(() -> new ResourceNotFoundException("Product with id: " + id + " doesn't exists"));
+    }
+
+    @GetMapping("/edit/{id}")
+    public String showEditForm(@PathVariable Long id, Model model) {
+        Product p = productService.findById(id).orElseThrow(() -> new ResourceNotFoundException("Product with id: " + id + " doesn't exists (for edit)"));
+        model.addAttribute("product", p);
+        return "edit_product";
+    }
+
+    @PostMapping("/edit")
+    public String showEditForm(@ModelAttribute Product product) {
+        productService.saveOrUpdate(product);
+        return "redirect:/products/";
+    }
+
+    @GetMapping("/add")
+    public String showAddForm(Model model) {
+        Product product = new Product();
+        model.addAttribute("product", product);
+        return "add_product";
+    }
+
+    @GetMapping("/delete/{id}")
+    public String deleteProductById(@PathVariable Long id) {
+        Product deleteProduct = productService.findById(id).orElse(null);
+        if(deleteProduct == null) return "redirect:/error/{id}";
+        productService.deleteProductById(id);
+        return "redirect:/products/";
     }
 
     //этот метод не из дз, можно не смотреть

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <title>Изменение товара</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container">
+    <div th:replace="~{navigation :: navigationPanel(Products)}"/>
+    <h1>Редактировать товар</h1>
+    <form th:action="@{/products/edit}" th:object="${product}" method="POST">
+        <input type=hidden th:field="*{id}"/>
+        <div class="form-group col-md-6">
+            <label for="titleInput">Наименование</label>
+            <input class="form-control" th:field="*{title}" name="title" type="text"
+                   id="titleInput">
+        </div>
+        <div class="form-group col-md-6">
+            <label for="priceInput">Цена</label>
+            <input class="form-control" th:field="*{price}" name="price"
+                   type="number" id="priceInput">
+        </div>
+        <button class="btn btn-warning" type="submit">Сохранить</button>
+        <a th:href="@{/products}" class="btn btn-primary">На главную страницу</a>
+    </form>
+</div>
+</body>
+</html>
