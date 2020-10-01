@@ -29,8 +29,6 @@ public class ProductController {
         Page<Product> products = productService.findAll(productFilter.getSpec(), page-1, 5);
         model.addAttribute("products", products);
         model.addAttribute("filterDefinition", productFilter.getFilterDefinition());
-        //model.addAttribute("products", productService.findAllByPriceGreaterThanEqualAndPriceLessThanEqual(minPrice, maxPrice, PageRequest.of(page-1, 4)));
-        //model.addAttribute("allProducts", productService.findAllByPriceBetween(minPrice, maxPrice));
         return "products";
     }
 
@@ -42,15 +40,14 @@ public class ProductController {
 
     @GetMapping("/edit/{id}")
     public String showEditForm(@PathVariable Long id, Model model) {
-        Product product = productService.findById(id).orElse(null);
-        if(product == null) return "redirect:/error/{id}";
-        model.addAttribute("product", product);
-        return "edit_product_form";
+        Product p = productService.findById(id).orElseThrow(() -> new ResourceNotFoundException("Product with id: " + id + " doesn't exists (for edit)"));
+        model.addAttribute("product", p);
+        return "edit_product";
     }
 
     @PostMapping("/edit")
-    public String modifyProduct(@ModelAttribute Product modifiedProduct) {
-        productService.saveOrUpdateProduct(modifiedProduct);
+    public String showEditForm(@ModelAttribute Product product) {
+        productService.saveOrUpdate(product);
         return "redirect:/products/";
     }
 
@@ -58,10 +55,8 @@ public class ProductController {
     public String showAddForm(Model model) {
         Product product = new Product();
         model.addAttribute("product", product);
-        return "add_product_form";
+        return "add_product";
     }
-
-
 
     @GetMapping("/delete/{id}")
     public String deleteProductById(@PathVariable Long id) {

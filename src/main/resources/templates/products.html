@@ -42,6 +42,7 @@
             <th>ID</th>
             <th>Название</th>
             <th>Цена</th>
+            <th>Действие</th>
         </tr>
         </thead>
         <tbody>
@@ -50,8 +51,8 @@
             <td th:text="${p.title}"/>
             <td th:text="${p.price}"/>
             <td>
-<!--                <a type="button" class="btn btn-primary" th:href="@{'/cart/add_product/' + ${p.id}}">Добавить в корзину</a>-->
-                <a type="button" class="btn btn-warning" th:href="@{'/products/edit/' + ${p.id}}">Редактировать</a>
+                <a type="button" class="btn btn-primary" th:href="@{'/cart/add/' + ${p.id}}">В корзину</a>
+                <a type="button" class="btn btn-warning" th:href="@{'/products/edit/' + ${p.id}}">Изменить</a>
                 <a type="button" class="btn btn-danger" th:href="@{'/products/delete/' + ${p.id}}">Удалить из каталога</a>
             </td>
         </tr>
@@ -65,10 +66,10 @@
             </li>
 
             <li class="page-item" th:classappend="${products.getNumber() + 1 == i ? 'active' : ''}"
-                th:each="i : ${#numbers.sequence(1, products.getTotalPages())}">
+                th:each="i : ${#numbers.sequence((products.getNumber()-1 >0 ? products.getNumber()-1 : 1),
+                (products.getNumber() + 3 < products.totalPages ? products.getNumber() + 3 : products.totalPages),1)}">
 
-                <a th:if="${i >= products.getNumber() - 1 && i <= products.getNumber() + 3||i==1||i==products.getTotalPages()}"
-                   class="page-link" th:text="${i}" th:href="@{'/products?p=' + ${i} + ${filterDefinition}}"></a>
+                <a class="page-link" th:text="${i}" th:href="@{'/products?p=' + ${i} + ${filterDefinition}}"></a>
 
             </li>
             <li class="page-item"  th:classappend="${products.isLast() ? 'disabled' : ''}">

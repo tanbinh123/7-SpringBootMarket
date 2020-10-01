@@ -22,13 +22,6 @@ public class ProductService {
         return productRepository.findAll(spec, PageRequest.of(page, size));
     }
 
-//    public Page<Product> findAllByPriceGreaterThanEqualAndPriceLessThanEqual(Integer minPrice, Integer maxPrice, Pageable pages){
-//        return productRepository.findAllByPriceGreaterThanEqualAndPriceLessThanEqual(minPrice,maxPrice, pages);
-//    }
-//    public List<Product> findAllByPriceBetween(Integer min, Integer max){
-//        return productRepository.findAllByPriceBetween(min, max);
-//    }
-
     @Transactional(readOnly = true)
     public Optional<Product> findById(Long id) {
         return productRepository.findById(id);
@@ -40,8 +33,8 @@ public class ProductService {
     }
 
     @Transactional
-    public void saveOrUpdateProduct(Product modifiedProduct) {
-        productRepository.saveAndFlush(modifiedProduct);
+    public Product saveOrUpdate(Product product) {
+        return productRepository.save(product);
     }
 
     @Transactional

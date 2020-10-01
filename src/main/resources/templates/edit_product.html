@@ -12,9 +12,9 @@
     <div th:replace="~{navigation :: navigationPanel(Products)}"/>
     <h1>Редактировать товар</h1>
     <form th:action="@{/products/edit}" th:object="${product}" method="POST">
-        <input hidden th:field="*{id}"/>
+        <input type=hidden th:field="*{id}"/>
         <div class="form-group col-md-6">
-            <label for="titleInput">Название</label>
+            <label for="titleInput">Наименование</label>
             <input class="form-control" th:field="*{title}" name="title" type="text"
                    id="titleInput">
         </div>
@@ -23,7 +23,7 @@
             <input class="form-control" th:field="*{price}" name="price"
                    type="number" id="priceInput">
         </div>
-        <button class="btn btn-warning" type="submit">Применить</button>
+        <button class="btn btn-warning" type="submit">Сохранить</button>
         <a th:href="@{/products}" class="btn btn-primary">На главную страницу</a>
     </form>
 </div>
