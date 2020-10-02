@@ -34,8 +34,6 @@
         <a class="btn btn-primary" th:href="@{/products}">Очистить фильтр</a>
     </form>
     <hr color="Green"/>
-
-    <!--    <span th:if="${!products.isEmpty()}" th:text="${'Всего продуктов *с учетом фильтра: '+ allProducts.size()}"></span>-->
     <table class="table table-hover" th:if="${!products.isEmpty()}">
         <thead>
         <tr>
