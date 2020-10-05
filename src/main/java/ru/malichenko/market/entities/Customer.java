@@ -20,7 +20,7 @@ public class Customer {
     @Column(name = "name")
     private String name;
 
-    @OneToMany(mappedBy = "customer")
-    //@Cascade(org.hibernate.annotations.CascadeType.REMOVE)
-    private List<Order> orders;
+//    @OneToMany(mappedBy = "customer")
+//    //@Cascade(org.hibernate.annotations.CascadeType.REMOVE)
+//    private List<Order> orders;
 }

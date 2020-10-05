@@ -38,6 +38,7 @@
         </tr>
         </tbody>
     </table>
+    <a th:if="${!@cart.items.isEmpty()}" type="button" class="btn btn-primary" th:href="@{'/orders/new/'}">Оформить заказ</a>
 </div>
 </body>
 </html>

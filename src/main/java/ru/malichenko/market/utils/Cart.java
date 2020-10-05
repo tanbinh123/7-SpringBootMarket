@@ -28,6 +28,10 @@ public class Cart {
         items = new ArrayList<>();
     }
 
+    public void clear(){
+        items.clear();
+    }
+
     public void addOrIncrement(Product p) {
         for (OrderItem o : items) {
             if (o.getProduct().getId().equals(p.getId())) {

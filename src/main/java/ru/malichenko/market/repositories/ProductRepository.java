@@ -16,4 +16,7 @@ public interface ProductRepository extends JpaRepository<Product, Long>, JpaSpec
     Optional<ProductDto> findOneById(Long id);
 
     void deleteProductById(Long id);
+
+    void deleteAll();
 }
+
