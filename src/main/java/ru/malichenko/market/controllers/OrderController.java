@@ -8,8 +8,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import ru.malichenko.market.entities.Order;
-import ru.malichenko.market.entities.OrderItem;
-import ru.malichenko.market.services.OrderItemService;
 import ru.malichenko.market.services.OrderService;
 import ru.malichenko.market.utils.Cart;
 
@@ -18,7 +16,6 @@ import ru.malichenko.market.utils.Cart;
 @AllArgsConstructor
 public class OrderController {
     private OrderService orderService;
-    private OrderItemService orderItemService;
     private Cart cart;
 
     @GetMapping
@@ -28,21 +25,15 @@ public class OrderController {
     }
 
     @GetMapping("/new")
-    public String newOrder(Model model) {
-        Order order = new Order();
-
-        order = orderService.saveOrUpdate(order);
-        for (int i = 0; i < cart.getItems().size(); i++) {
-            cart.getItems().get(i).setOrder(order);
-            orderItemService.saveOrUpdate(cart.getItems().get(i));
-        }
-        model.addAttribute("order", order);
+    public String newOrder() {
         return "order_new";
     }
 
     @PostMapping("/add")
     public String addOrder(@ModelAttribute Order order) {
         order.setPrice(cart.getPrice());
+        cart.getItems().forEach(io -> io.setOrder(order));
+        order.setItems(cart.getItems());
         orderService.saveOrUpdate(order);
         cart.clear();
         return "redirect:/orders";

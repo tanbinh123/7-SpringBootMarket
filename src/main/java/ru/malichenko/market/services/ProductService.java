@@ -10,6 +10,7 @@ import ru.malichenko.market.dto.ProductDto;
 import ru.malichenko.market.entities.Product;
 import ru.malichenko.market.repositories.ProductRepository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -41,4 +42,10 @@ public class ProductService {
     public void deleteProductById(Long id) {
         productRepository.deleteProductById(id);
     }
+
+    @Transactional
+    public void deleteAll() {
+        productRepository.deleteAll();
+    }
 }
+
