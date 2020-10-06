@@ -13,6 +13,8 @@
     <h1>Каталог товаров</h1>
     <span th:if="${products.isEmpty()}" class="text-warning">Продуктов нет</span>
     <hr color="Green"/>
+
+
     <h3 class="text-success">Установить фильтр</h3>
     <form method="GET" th:action="@{/products}">
         <div class="form-group col-md-6">
@@ -33,6 +35,8 @@
         <button class="btn btn-primary" type="submit">Применить фильтр</button>
         <a class="btn btn-primary" th:href="@{/products}">Очистить фильтр</a>
     </form>
+
+
     <hr color="Green"/>
     <table class="table table-hover" th:if="${!products.isEmpty()}">
         <thead>
