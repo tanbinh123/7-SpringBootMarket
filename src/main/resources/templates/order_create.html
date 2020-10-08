@@ -1,23 +1,18 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-
 <head>
     <meta charset="utf-8"/>
-
     <title>Оформление заказа</title>
-
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 </head>
-
 <body>
 <div class="container">
     <div th:replace="~{navigation :: navigationPanel(OrderNew)}"/>
-    <h1>Корзина</h1>
-    <span th:if="${@cart.items.isEmpty()}" class="text-warning">Корзина пуста</span>
-    <div th:if="${!@cart.items.isEmpty()}" class="container">
-        <table th:if="${!@cart.items.isEmpty()}" class="table table-hover">
+    <h1 th:text="${username + ', Ваш заказ:'}"></h1>
+    <div class="container">
+        <table class="table table-hover">
             <thead>
             <tr>
                 <th>Название</th>
@@ -39,22 +34,18 @@
             </tbody>
         </table>
         <h1>Данные поекпателя</h1>
-        <form th:action="@{/orders/add}" th:object="${order}" method="POST">
-            <input type=hidden />
+        <form method="POST" th:action="@{/orders/confirm}">
             <div class="form-group col-md-6">
-                <label for="nameInput">Имя</label>
-                <input class="form-control"  name="name" type="text"
-                       id="nameInput">
+                <label for="receiver_name">Получатель</label>
+                <input class="form-control" required name="receiver_name" type="text" id="receiver_name" th:value="${username}" placeholder="Имя получателя">
             </div>
             <div class="form-group col-md-6">
-                <label for="phoneInput">Телефон</label>
-                <input class="form-control"  name="phone" type="text"
-                       id="phoneInput">
+                <label for="phone_number">Телефон</label>
+                <input class="form-control" required name="phone_number" type="text" id="phone_number" placeholder="Телефон">
             </div>
             <div class="form-group col-md-6">
-                <label for="addressInput">Адрес доставки</label>
-                <input class="form-control"  name="address" type="text"
-                       id="addressInput">
+                <label for="address">Адрес доставки</label>
+                <input class="form-control" required name="address" type="text" id="address" placeholder="Адрес доставки">
             </div>
             <button class="btn btn-warning" type="submit">Оформить заказ</button>
         </form>

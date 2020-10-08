@@ -1,9 +1,39 @@
-create table customers
+create table users
 (
-    id   bigserial,
-    name varchar(255) not null,
+    id       bigserial,
+    username varchar(30) not null,
+    password varchar(80) not null,
+    email    varchar(50) unique,
     primary key (id)
 );
+
+create table roles
+(
+    id   serial,
+    name varchar(50) not null,
+    primary key (id)
+);
+
+CREATE TABLE users_roles
+(
+    user_id bigint not null,
+    role_id int    not null,
+    primary key (user_id, role_id),
+    foreign key (user_id) references users (id),
+    foreign key (role_id) references roles (id)
+);
+
+insert into roles (name)
+values ('ROLE_USER'),
+       ('ROLE_ADMIN'),
+       ('SOMETHING');
+
+insert into users (username, password, email)
+values ('user', '$2a$04$Fx/SX9.BAvtPlMyIIqqFx.hLY2Xp8nnhpzvEEVINvVpwIPbA3v/.i', 'user@gmail.com');
+
+insert into users_roles (user_id, role_id)
+values (1, 1),
+       (1, 2);
 
 create table products
 (
@@ -14,27 +44,23 @@ create table products
 
 create table orders
 (
-    id    bigserial primary key,
-    name  varchar(255),
-    phone int       ,
-    address  varchar(255) ,
-    price int
+    id            bigserial primary key,
+    user_id       bigint references users (id),
+    receiver_name varchar(255),
+    phone         varchar(255),
+    address       varchar(1000),
+    price         int
 );
 
 create table order_items
 (
     id                bigserial primary key,
     product_id        bigint references products (id),
-    order_id          bigint references orders (id) ON DELETE CASCADE ON UPDATE CASCADE,
+    order_id          bigint references orders (id),
     price             int,
     price_per_product int,
     quantity          int
 );
-
-insert into customers (name)
-values ('Bob'),
-       ('John'),
-       ('Jack');
 
 insert into products (title, price)
 values ('loaf', 21),

@@ -19,12 +19,9 @@ public class RestProductController {
     private ProductService productService;
 
     @GetMapping
-    public Page<Product> getAllProduct
-            (
-             @RequestParam(defaultValue = "1", name = "p") Integer page
-            ,@RequestParam Map<String,String> params
-    ){
-
+    public Page<Product> getAllProduct(@RequestParam(defaultValue = "1", name = "p") Integer page,
+                                       @RequestParam Map<String,String> params){
+        if (page < 1) {page = 1;}
         ProductFilter productFilter = new ProductFilter(params);
         return productService.findAll(productFilter.getSpec(), page-1, 5);
     }

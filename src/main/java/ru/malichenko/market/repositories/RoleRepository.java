@@ -1,10 +1,11 @@
 package ru.malichenko.market.repositories;
 
 
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import ru.malichenko.market.entities.Customer;
+import ru.malichenko.market.entities.Role;
 
 @Repository
-public interface CustomerRepository extends JpaRepository<Customer, Long> {
+public interface RoleRepository extends JpaRepository<Role, Long> {
 }

@@ -28,8 +28,9 @@ public class Cart {
         items = new ArrayList<>();
     }
 
-    public void clear(){
+    public void clear() {
         items.clear();
+        price = 0;
     }
 
     public void addOrIncrement(Product p) {
