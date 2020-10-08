@@ -1,17 +1,13 @@
 <!DOCTYPE html>
 
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-
-    <title>September Market</title>
-
+    <title>naviPanel</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 </head>
-
 <div th:fragment="navigationPanel(activeTab)">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="collapse navbar-collapse" id="navbarNav">
@@ -22,8 +18,8 @@
                 <li class="nav-item" th:classappend="${activeTab == 'Cart' ? 'active' : ''}">
                     <a class="nav-link" th:href="@{/cart}" th:text="'Корзина('+${@cart.items.size()}+')'">Корзина</a>
                 </li>
-                <li class="nav-item" th:classappend="${activeTab == 'OrderNew' ? 'active' : ''}">
-                    <a class="nav-link" th:href="@{/orders/new}">Оформлене заказа</a>
+                <li class="nav-item" th:classappend="${activeTab == 'OrderCreate' ? 'active' : ''}">
+                    <a class="nav-link" th:href="@{/orders/create}">Оформлене заказа</a>
                 </li>
                 <li class="nav-item" th:classappend="${activeTab == 'Orders' ? 'active' : ''}">
                     <a class="nav-link" th:href="@{/orders}">Заказы</a>

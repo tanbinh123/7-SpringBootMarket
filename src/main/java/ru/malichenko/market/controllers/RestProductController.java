@@ -1,12 +1,16 @@
 package ru.malichenko.market.controllers;
 
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.malichenko.market.entities.Product;
 import ru.malichenko.market.services.ProductService;
+import ru.malichenko.market.utils.ProductFilter;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/v1/products")
@@ -15,8 +19,11 @@ public class RestProductController {
     private ProductService productService;
 
     @GetMapping
-    public List<Product> getAllProduct(){
-        return productService.findAll(Specification.where(null),0,10).getContent();
+    public Page<Product> getAllProduct(@RequestParam(defaultValue = "1", name = "p") Integer page,
+                                       @RequestParam Map<String,String> params){
+        if (page < 1) {page = 1;}
+        ProductFilter productFilter = new ProductFilter(params);
+        return productService.findAll(productFilter.getSpec(), page-1, 5);
     }
 
     @GetMapping("/{id}")
