@@ -21,8 +21,9 @@ public class OrderController {
     private Cart cart;
 
     @GetMapping
-    public String showOrders(Model model) {
-        model.addAttribute("orders", orderService.findAll());//todo search for user
+    public String showOrders(Model model, Principal principal) {
+        Long id = userService.findByUsername(principal.getName()).getId();
+        model.addAttribute("orders", orderService.findAllOrderByUserId(id));
         return "orders";
     }
 

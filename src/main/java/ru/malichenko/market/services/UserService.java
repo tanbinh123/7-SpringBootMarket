@@ -11,6 +11,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ru.malichenko.market.entities.Product;
 import ru.malichenko.market.entities.Role;
 import ru.malichenko.market.entities.User;
 import ru.malichenko.market.repositories.UserRepository;
@@ -21,6 +22,10 @@ import java.util.stream.Collectors;
 @Service
 public class UserService implements UserDetailsService {
     private UserRepository userRepository;
+
+    public User save(User user) {
+        return userRepository.save(user);
+    }
 
     @Autowired
     public void setUserRepository(UserRepository userRepository) {
