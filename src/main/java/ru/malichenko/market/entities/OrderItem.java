@@ -8,7 +8,6 @@ import javax.persistence.*;
 @Table(name = "order_items")
 @Data
 @NoArgsConstructor
-
 public class OrderItem {
 
     @Id
@@ -42,12 +41,10 @@ public class OrderItem {
 
     public void incrementQuantity(){
         quantity++;
-        price = pricePerProduct * quantity;
     }
 
     public void decrementQuantity(){
         quantity--;
-        price = pricePerProduct * quantity;
     }
 
 }

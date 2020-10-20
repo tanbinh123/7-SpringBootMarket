@@ -6,11 +6,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.malichenko.market.dto.ProductDto;
 import ru.malichenko.market.entities.Product;
 import ru.malichenko.market.repositories.ProductRepository;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -28,24 +26,21 @@ public class ProductService {
         return productRepository.findById(id);
     }
 
-    @Transactional(readOnly = true)
-    public Optional<ProductDto> findDtoById(Long id) {
-        return productRepository.findOneById(id);
-    }
-
-    @Transactional
     public Product saveOrUpdate(Product product) {
         return productRepository.save(product);
     }
 
-    @Transactional
     public void deleteProductById(Long id) {
         productRepository.deleteProductById(id);
     }
 
-    @Transactional
     public void deleteAll() {
         productRepository.deleteAll();
     }
+
+    public boolean existsById(Long id){
+        return  productRepository.existsById(id);
+    }
+
 }
 

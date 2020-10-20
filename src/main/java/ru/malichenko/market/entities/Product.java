@@ -4,6 +4,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 @Entity
@@ -17,8 +19,10 @@ public class Product {
     private Long id;
 
     @Column(name = "title")
+    @Size(min=4)
     private String title;
 
     @Column(name = "price")
+    @Min(1)
     private int price;
 }

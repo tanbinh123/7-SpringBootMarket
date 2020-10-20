@@ -17,6 +17,15 @@ angular.module('app').controller('storeController', function ($scope, $http) {
         });
     };
 
+    $scope.addToCart = function (productId) {
+        $http({
+            url: contextPath + '/api/v1/cart/add/' + productId,
+            method: 'GET'
+        }).then(function (response) {
+            console.log("add to cart")
+        });
+    };
+
     $scope.generatePagesInd = function (startPage, endPage) {
         let arr = [];
         for (let i = startPage; i < endPage + 1; i++) {
@@ -24,13 +33,5 @@ angular.module('app').controller('storeController', function ($scope, $http) {
         }
         return arr;
     }
-
-    $scope.submitCreateNewProduct = function () {
-        $http.post(contextPath + '/api/v1/products', $scope.newProduct)
-            .then(function (response) {
-                $scope.newProduct = null;
-                $scope.fillTable();
-            });
-    };
     $scope.fillTable();
 });
