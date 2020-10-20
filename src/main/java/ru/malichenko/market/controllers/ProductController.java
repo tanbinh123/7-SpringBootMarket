@@ -6,7 +6,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import ru.malichenko.market.dto.ProductDto;
 import ru.malichenko.market.entities.Product;
 import ru.malichenko.market.exceptions.ResourceNotFoundException;
 import ru.malichenko.market.services.ProductService;
@@ -61,15 +60,8 @@ public class ProductController {
     @GetMapping("/delete/{id}")
     public String deleteProductById(@PathVariable Long id) {
         Product deleteProduct = productService.findById(id).orElse(null);
-        if(deleteProduct == null) return "redirect:/error/{id}";
+        if(deleteProduct == null) throw new ResourceNotFoundException("Invalid product");
         productService.deleteProductById(id);
         return "redirect:/products/";
-    }
-
-    //этот метод не из дз, можно не смотреть
-    @GetMapping("/dto/{id}")
-    @ResponseBody
-    public ProductDto showOneProduct(Model model, @PathVariable Long id) {
-        return productService.findDtoById(id).get();
     }
 }

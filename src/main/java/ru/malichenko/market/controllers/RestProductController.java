@@ -4,8 +4,12 @@ import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ru.malichenko.market.entities.Product;
+import ru.malichenko.market.exceptions.ResourceCreationException;
+import ru.malichenko.market.exceptions.ResourceNotFoundException;
 import ru.malichenko.market.services.ProductService;
 import ru.malichenko.market.utils.ProductFilter;
 
@@ -18,37 +22,44 @@ import java.util.Map;
 public class RestProductController {
     private ProductService productService;
 
-    @GetMapping
+    @GetMapping(produces = "application/json")
     public Page<Product> getAllProduct(@RequestParam(defaultValue = "1", name = "p") Integer page,
-                                       @RequestParam Map<String,String> params){
-        if (page < 1) {page = 1;}
+                                       @RequestParam Map<String, String> params) {
+        if (page < 1) {
+            page = 1;
+        }
         ProductFilter productFilter = new ProductFilter(params);
-        return productService.findAll(productFilter.getSpec(), page-1, 5);
+        return productService.findAll(productFilter.getSpec(), page - 1, 5);
     }
 
-    @GetMapping("/{id}")
-    public Product getProductById(@PathVariable Long id){
-        return productService.findById(id).get();
+    @GetMapping(value = "/{id}", produces = "application/json")
+    public Product getProductById(@PathVariable Long id) {
+        return productService.findById(id).orElseThrow(() -> new ResourceNotFoundException("Unable to find product with id: " + id ));
     }
 
-    @PostMapping
-    public Product createProduct(@RequestBody Product p){
-        p.setId(null);
+    @PostMapping(consumes = "application/json", produces = "application/json")
+    public Product createProduct(@RequestBody @Validated Product p, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            throw new ResourceCreationException("Invalid product");
+        }
+        if (p.getId() != null && productService.existsById(p.getId())) {
+            throw new ResourceCreationException("Product with id: " + p.getId() + "already exist");
+        }
         return productService.saveOrUpdate(p);
     }
 
-    @PutMapping
-    public Product updateProduct(@RequestBody Product p){
+    @PutMapping(consumes = "application/json", produces = "application/json")
+    public Product updateProduct(@RequestBody Product p) {
         return productService.saveOrUpdate(p);
     }
 
     @DeleteMapping
-    public void deleteProduct(){
+    public void deleteProduct() {
         productService.deleteAll();
     }
 
     @DeleteMapping("/{id}")
-    public void deleteById(@PathVariable Long id){
+    public void deleteById(@PathVariable Long id) {
         productService.deleteProductById(id);
     }
 }
