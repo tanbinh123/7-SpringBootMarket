@@ -24,6 +24,7 @@ angular.module('app').controller('storeController', function ($scope, $http) {
                 p: pageIndex
             }
         }).then(function (response) {
+            console.log(response.data);
             $scope.ProductsPage = response.data;
             $scope.PaginationArray = $scope.generatePagesInd(1, $scope.ProductsPage.totalPages)
         });
