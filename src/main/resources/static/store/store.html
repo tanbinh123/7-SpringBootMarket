@@ -17,7 +17,7 @@
         <div class="filterCategory col-md-6">
             <label for="filterCategory">Категория: </label>
             <select name="filterCategory" id="filterCategory" ng-model="filter.category">
-                <option ng-repeat="option in dataCategory" value="{{option.id}}">{{option.name}}</option>
+                <option ng-repeat="category in dataCategory" value="{{category.id}}">{{category.title}}</option>
             </select>
 
         </div>
