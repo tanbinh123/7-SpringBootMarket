@@ -2,8 +2,6 @@ package ru.malichenko.market.controllers;
 
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.data.jpa.domain.Specification;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -13,7 +11,6 @@ import ru.malichenko.market.exceptions.ResourceNotFoundException;
 import ru.malichenko.market.services.ProductService;
 import ru.malichenko.market.utils.ProductFilter;
 
-import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -28,6 +25,7 @@ public class RestProductController {
         if (page < 1) {
             page = 1;
         }
+        System.out.println("params = "+params.toString());
         ProductFilter productFilter = new ProductFilter(params);
         return productService.findAll(productFilter.getSpec(), page - 1, 5);
     }

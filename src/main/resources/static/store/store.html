@@ -13,6 +13,14 @@
             <label for="filterMaxPrice">Максимальная цена:</label>
             <input class="form-control" type="number" ng-model="filter.max_price" id="filterMaxPrice">
         </div>
+
+        <div class="filterCategory col-md-6">
+            <label for="filterCategory">Категория: </label>
+            <select name="filterCategory" id="filterCategory" ng-model="filter.category">
+                <option ng-repeat="option in dataCategory.content" value="{{option.id}}">{{option.name}}</option>
+            </select>
+
+        </div>
         <div>
             <button class="btn btn-success" type="submit">Применить</button>
         </div>
@@ -22,12 +30,14 @@
         <tr>
             <td>Название</td>
             <td>Цена</td>
+            <td>Категория</td>
             <td></td>
         </tr>
         <tbody>
         <tr ng-repeat="p in ProductsPage.content">
             <td>{{p.title}}</td>
             <td>{{p.price}}</td>
+            <td>{{p.category.title}}</td>
             <td>
                 <button class="btn btn-success" ng-click="addToCart(p.id)">Добавить в корзину</button>
             </td>
