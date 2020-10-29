@@ -1,17 +1,6 @@
 angular.module('app').controller('storeController', function ($scope, $http) {
     const contextPath = 'http://localhost:8189/market';
 
-
-    // $scope.dataCategory = {
-    //     options: [
-    //         {id: '1', name: 'grocery'},
-    //         {id: '2', name: 'industrial'},
-    //         {id: '3', name: 'electronics'},
-    //         {id: '4', name: 'digital'}
-    //     ]
-    // }
-
-
     $scope.fillTable = function (pageIndex = 1) {
         $http({
             url: contextPath + '/api/v1/products',
