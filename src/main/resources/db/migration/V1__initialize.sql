@@ -37,11 +37,18 @@ values (1, 1),
        (2, 1),
        (2, 2);
 
-create table products
+create table categories
 (
     id    bigserial primary key,
-    title varchar(255),
-    price int
+    title varchar(255)
+);
+
+create table products
+(
+    id          bigserial primary key,
+    title       varchar(255),
+    category_id bigint references categories (id),
+    price       int
 );
 
 create table orders
@@ -63,43 +70,48 @@ create table order_items
     price_per_product int,
     quantity          int
 );
+insert into categories (title)
+values ('grocery'),
+       ('industrial'),
+       ('electronics'),
+       ('digital');
 
-insert into products (title, price)
-values ('loaf', 21),
-       ('hamburger', 22),
-       ('yoghurt', 23),
-       ('pastry', 24),
-       ('tin', 25),
-       ('candy', 26),
-       ('marmalade', 27),
-       ('butter', 28),
-       ('honey', 29),
-       ('milk', 31),
-       ('olives', 32),
-       ('pepper', 33),
-       ('biscuit', 34),
-       ('sugar', 35),
-       ('cream', 36),
-       ('salt', 37),
-       ('bread', 38),
-       ('eggs', 39),
-       ('chocolate', 40),
-       ('loaf1', 121),
-       ('hamburger1', 122),
-       ('yoghurt1', 123),
-       ('pastry1', 124),
-       ('tin1', 125),
-       ('candy1', 126),
-       ('marmalade1', 127),
-       ('butter1', 128),
-       ('honey1', 129),
-       ('milk1', 131),
-       ('olives1', 132),
-       ('pepper1', 133),
-       ('biscuit1', 134),
-       ('sugar1', 135),
-       ('cream1', 136),
-       ('salt1', 137),
-       ('bread1', 138),
-       ('eggs1', 139),
-       ('chocolate1', 140);
+insert into products (title, price, category_id)
+values ('loaf', 21, 1),
+       ('hamburger', 22, 1),
+       ('iphone 12', 23, 4),
+       ('tv', 24, 3),
+       ('tin', 25, 1),
+       ('brick', 26, 2),
+       ('marmalade', 27, 1),
+       ('butter', 28, 1),
+       ('honey', 29, 1),
+       ('milk', 31, 1),
+       ('olives', 32, 1),
+       ('pepper', 33, 1),
+       ('biscuit', 34, 1),
+       ('sugar', 35, 1),
+       ('cream', 36, 1),
+       ('salt', 37, 1),
+       ('bread', 38, 1),
+       ('eggs', 39, 1),
+       ('chocolate', 40, 1),
+       ('loaf1', 121, 1),
+       ('hamburger1', 122, 1),
+       ('yoghurt1', 123, 1),
+       ('pastry1', 124, 1),
+       ('tin1', 125, 1),
+       ('candy1', 126, 1),
+       ('marmalade1', 127, 1),
+       ('butter1', 128, 1),
+       ('honey1', 129, 1),
+       ('milk1', 131, 1),
+       ('olives1', 132, 1),
+       ('pepper1', 133, 1),
+       ('biscuit1', 134, 1),
+       ('sugar1', 135, 1),
+       ('cream1', 136, 1),
+       ('salt1', 137, 1),
+       ('bread1', 138, 1),
+       ('eggs1', 139, 1),
+       ('chocolate1', 140, 1);
