@@ -10,15 +10,14 @@ import ru.malichenko.market.services.CategoryService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/category")
+@RequestMapping("/api/v1/categories")
 @AllArgsConstructor
-public class RestCategoryController {
+public class CategoryController {
     private CategoryService categoryService;
 
     @GetMapping(produces = "application/json")
-    public List<Category> getAllCategory() {
-        List<Category> list = categoryService.findAll();
-        return list;
+    public List<Category> getAllCategories() {
+        return categoryService.findAll();
     }
 
 }

@@ -1,6 +1,6 @@
 package ru.malichenko.market.services;
 
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.malichenko.market.entities.Order;
 import ru.malichenko.market.repositories.OrderRepository;
@@ -8,9 +8,9 @@ import ru.malichenko.market.repositories.OrderRepository;
 import java.util.List;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class OrderService {
-    private OrderRepository orderRepository;
+    private final OrderRepository orderRepository;
 
     public List<Order> findAll(){
         return orderRepository.findAll();
