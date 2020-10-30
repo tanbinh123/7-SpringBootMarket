@@ -39,7 +39,7 @@ public class Order {
     @Column(name = "price")
     private int price;
 
-    public Order (User user, Cart cart, String address,String phone, String receiverName){
+    public Order (User user, Cart cart, String address, String phone, String receiverName){
         this.user = user;
         this.receiverName = receiverName;
         this.price = cart.getPrice();
