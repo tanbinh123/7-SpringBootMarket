@@ -30,6 +30,10 @@
             .when('/order', {
                 templateUrl: 'order/order.html',
                 controller: 'orderController'
+            })
+            .when('/orders', {
+                templateUrl: 'orders/orders.html',
+                controller: 'ordersController'
             });
 
         $httpProvider.interceptors.push(function ($q, $location) {
@@ -37,7 +41,7 @@
                 'responseError': function (rejection, $localStorage, $http) {
                     var defer = $q.defer();
                     if (rejection.status == 401 || rejection.status == 403) {
-                        console.log('error: 401-403');
+                        console.log('error: 401-403!');
                         $location.path('/auth');
                         if (!(localStorage.getItem("localUser") === null)) {
                             delete $localStorage.currentUser;

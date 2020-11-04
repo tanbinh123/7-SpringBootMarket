@@ -1,36 +1,26 @@
 angular.module('app').controller('orderController', function ($scope, $http) {
     const contextPath = 'http://localhost:8189/market';
 
-    $scope.submitCreateNewOrder = function () {
-        $http.post(contextPath + '/api/v1/order', $scope.newOrder)
-
+    $scope.createNewOrder = function () {
+        $http({
+            url: contextPath + '/api/v1/orders',
+            method: 'POST',
+            params: {
+                receiverName: $scope.order.receiverName,
+                phone: $scope.order.phone,
+                address: $scope.order.address
+            }
+        })
             .then(function (response) {
-                $scope.newOrder = null;
-                console.log(response.data());
+                alert('Заказ оформлен')
+                $scope.order = null;
+                $scope.newOrderContentRequest();
             });
     };
 
-        // $scope.submitCreateNewOrder = function ()  {
-        //     $http({
-        //         url: contextPath + '/api/v1/order',
-        //         method: 'POST',
-        //         params: {
-        //             // cart: $scope.cart ? $scope.cart : null,
-        //             address: $scope.newOrder ? $scope.newOrder.address : null,
-        //             phone_number: $scope.newOrder ? $scope.newOrder.phone_number : null,
-        //             receiver_name: $scope.newOrder ? $scope.newOrder.receiver_name : null
-        //
-        //         }
-        //     }).then(function (response) {
-        //         $scope.newOrder = null;
-        //         console.log(response.data());
-        //     });
-        // };
-
-
-    $scope.orderContentRequest = function () {
+    $scope.newOrderContentRequest = function () {
         $http({
-            url: contextPath + '/api/v1/order',
+            url: contextPath + '/api/v1/orders/newOrder',
             method: 'GET'
         }).then(function (response) {
             console.log(response.data);
@@ -38,6 +28,5 @@ angular.module('app').controller('orderController', function ($scope, $http) {
         });
     };
 
-
-    $scope.orderContentRequest();
+    $scope.newOrderContentRequest();
 });

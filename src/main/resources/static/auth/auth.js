@@ -19,6 +19,15 @@ angular.module('app').controller('authController', function ($scope, $http, $loc
             });
     };
 
+    $scope.registerNewUser = function () {
+        $http.post(contextPath + '/register', $scope.newUser)
+            .then(function (response){
+                console.log(response.data());
+                window.alert("New user register ok");
+                $scope.newUser = null;
+            });
+    };
+
     $scope.tryToLogout = function () {
         $scope.clearUser();
         if ($scope.user.username) {

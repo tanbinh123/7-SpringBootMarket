@@ -28,4 +28,11 @@ public class User {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Collection<Role> roles;
+
+//    public User(String login, String password, String email, List<Role> roleList) {
+//        this.username = login;
+//        this.password = password;
+//        this.email = email;
+//        this.roles = roleList;
+//    }
 }
