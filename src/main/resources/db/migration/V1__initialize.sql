@@ -70,6 +70,7 @@ create table order_items
     price_per_product int,
     quantity          int
 );
+
 insert into categories (title)
 values ('grocery'),
        ('industrial'),

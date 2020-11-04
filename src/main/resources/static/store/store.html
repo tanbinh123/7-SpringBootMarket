@@ -17,7 +17,8 @@
         <div class="filterCategory col-md-6">
             <label for="filterCategory">Категория: </label>
             <select name="filterCategory" id="filterCategory" ng-model="filter.category">
-                <option ng-repeat="category in dataCategory" value="{{category.id}}">{{category.title}}</option>
+                <option></option>
+                <option ng-repeat="category in CategoriesList" value="{{category.id}}">{{category.title}}</option>
             </select>
 
         </div>
@@ -29,15 +30,15 @@
     <table class="table table-hover" cellpadding="0" cellspacing="0">
         <tr>
             <td>Название</td>
-            <td>Цена</td>
             <td>Категория</td>
+            <td>Цена</td>
             <td></td>
         </tr>
         <tbody>
         <tr ng-repeat="p in ProductsPage.content">
             <td>{{p.title}}</td>
+            <td>{{p.categoryTitle}}</td>
             <td>{{p.price}}</td>
-            <td>{{p.category.title}}</td>
             <td>
                 <button class="btn btn-success" ng-click="addToCart(p.id)">Добавить в корзину</button>
             </td>

@@ -1,23 +1,25 @@
 package ru.malichenko.market.services;
 
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import ru.malichenko.market.dto.OrderDto;
 import ru.malichenko.market.entities.Order;
 import ru.malichenko.market.repositories.OrderRepository;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class OrderService {
-    private OrderRepository orderRepository;
+    private final OrderRepository orderRepository;
 
     public List<Order> findAll(){
         return orderRepository.findAll();
     }
 
-    public List<Order> findAllOrderByUserId(Long id){
-        return orderRepository.findAllOrderByUserId(id);
+    public List<OrderDto> findAllUserOrdersDtosByUsername(String username){
+        return orderRepository.findAllOrdersByUsername(username).stream().map(OrderDto::new).collect(Collectors.toList());
     }
 
     public Order save(Order order) {

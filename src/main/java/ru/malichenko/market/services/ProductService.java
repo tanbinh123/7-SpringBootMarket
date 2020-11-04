@@ -1,6 +1,6 @@
 package ru.malichenko.market.services;
 
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.domain.Specification;
@@ -12,9 +12,9 @@ import ru.malichenko.market.repositories.ProductRepository;
 import java.util.Optional;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class ProductService {
-    private ProductRepository productRepository;
+    private final ProductRepository productRepository;
 
     @Transactional(readOnly = true)
     public Page<Product> findAll(Specification<Product> spec, int page, int size) {

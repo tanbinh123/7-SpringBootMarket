@@ -29,6 +29,10 @@ public class JwtTokenUtil {
         return getClaimFromToken(token, Claims::getSubject);
     }
 
+    public List<String> getRoles(String token) {
+        return getClaimFromToken(token, (Function<Claims, List<String>>) claims -> claims.get("roles", List.class));
+    }
+
 //    private Date getExpirationDateFromToken(String token) {
 //        return getClaimFromToken(token, Claims::getExpiration);
 //    }
@@ -47,7 +51,7 @@ public class JwtTokenUtil {
         List<String> rolesList = userDetails.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.toList());
-        claims.put("role", rolesList);
+        claims.put("roles", rolesList);
         return doGenerateToken(claims, userDetails.getUsername());
     }
 
