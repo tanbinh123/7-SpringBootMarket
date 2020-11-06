@@ -34,6 +34,10 @@
             .when('/orders', {
                 templateUrl: 'orders/orders.html',
                 controller: 'ordersController'
+            })
+            .when('/profile', {
+                templateUrl: 'profile/profile.html',
+                controller: 'profileController'
             });
 
         $httpProvider.interceptors.push(function ($q, $location) {

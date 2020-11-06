@@ -10,12 +10,15 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import ru.malichenko.market.configs.JwtTokenUtil;
 import ru.malichenko.market.dto.JwtRequest;
 import ru.malichenko.market.dto.JwtResponse;
+import ru.malichenko.market.entities.Profile;
 import ru.malichenko.market.entities.User;
 import ru.malichenko.market.exceptions.MarketError;
+import ru.malichenko.market.services.ProfileService;
 import ru.malichenko.market.services.RoleService;
 import ru.malichenko.market.services.UserService;
 
@@ -24,6 +27,7 @@ import ru.malichenko.market.services.UserService;
 public class AuthController {
     private final RoleService roleService;
     private final UserService userService;
+    private final ProfileService profileService;
     private final JwtTokenUtil jwtTokenUtil;
     private final AuthenticationManager authenticationManager;
     private final BCryptPasswordEncoder encoder;
@@ -41,11 +45,17 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<?> registerNewUser(@RequestBody User user){
-        if (userService.findByUsername(user.getUsername()).isPresent()){
-            return new ResponseEntity<>(new MarketError(HttpStatus.UNAUTHORIZED.value(), "Username: "+user.getUsername()+" already exist!"), HttpStatus.UNAUTHORIZED);
+    public ResponseEntity<?> registerNewUser(@RequestParam(name = "email") String email,
+                                             @RequestParam(name = "username") String username,
+                                             @RequestParam(name = "password") String password) {
+        if (userService.findByUsername(username).isPresent()) {
+            return new ResponseEntity<>(new MarketError(HttpStatus.UNAUTHORIZED.value(), "Username: " + username + " already exist!"), HttpStatus.UNAUTHORIZED);
         }
-        user.setPassword(encoder.encode(user.getPassword()));
+        Profile profile = new Profile();
+        profile.setEmail(email);
+        profileService.save(profile);
+
+        User user = new User(username, encoder.encode(password), profile);
         user.setRoles(roleService.getRole("ROLE_USER"));
         userService.saveNewUser(user);
         return ResponseEntity.ok(user);

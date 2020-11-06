@@ -20,11 +20,20 @@ angular.module('app').controller('authController', function ($scope, $http, $loc
     };
 
     $scope.registerNewUser = function () {
-        $http.post(contextPath + '/register', $scope.newUser)
+        $http({
+            url: contextPath + '/register',
+            method: 'POST',
+            params: {
+                password: $scope.newUser.password,
+                username: $scope.newUser.username,
+                email: $scope.newProfile.email
+            }
+        })
             .then(function (response){
-                console.log(response.data());
+                // console.log(response.data());
                 window.alert("New user register ok");
                 $scope.newUser = null;
+                $scope.newProfile = null;
             });
     };
 

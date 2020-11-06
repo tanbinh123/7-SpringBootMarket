@@ -20,19 +20,22 @@ public class User {
     @Column(name = "password")
     private String password;
 
-    @Column(name = "email")
-    private String email;
-
     @ManyToMany
     @JoinTable(name = "users_roles",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Collection<Role> roles;
 
-//    public User(String login, String password, String email, List<Role> roleList) {
-//        this.username = login;
-//        this.password = password;
-//        this.email = email;
-//        this.roles = roleList;
-//    }
+    @OneToOne
+    @JoinColumn(name = "profile_id")
+    private Profile profile;
+
+    public User() {
+    }
+
+    public User(String username, String encode, Profile profile) {
+        this.username = username;
+        this.password = encode;
+        this.profile = profile;
+    }
 }

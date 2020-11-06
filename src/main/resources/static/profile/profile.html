@@ -1,0 +1,75 @@
+<div>
+    <h3>Профиль пользователя</h3>
+
+    <form novalidate ng-submit="editUser()">
+        <h1 class="h3 mb-3 font-weight-normal">Изменить профиль пользователя</h1>
+
+<!--        <div class="form-group col-md-6">-->
+<!--            <label for="username">username</label>-->
+<!--            <input type="text" ng-model="editUser.username" id="username" class="form-control"-->
+<!--                   placeholder="username" required="" >-->
+<!--        </div>-->
+
+<!--        <div class="form-group col-md-6">-->
+<!--            <label for="password">password</label>-->
+<!--            <input type="password" ng-model="editUser.password" id="password" class="form-control"-->
+<!--                   placeholder="password" required="" >-->
+<!--        </div>-->
+
+<!--        <div class="form-group col-md-6">-->
+<!--            <label for="newPassword">newPassword</label>-->
+<!--            <input type="text" ng-model="editUser.newPassword" id="newPassword" class="form-control"-->
+<!--                   placeholder="newPassword" required="" >-->
+<!--        </div>-->
+<!--        <div class="form-group col-md-6">-->
+<!--            <label for="id">id</label>-->
+<!--        <input type="text" ng-model="editProfile.id" id="id" class="form-control" ng-value={{Profile.id}} >-->
+<!--        </div>-->
+
+        <div class="form-group col-md-6">
+            <label for="name">name</label>
+            <input type="text" ng-model="editProfile.name" id="name" class="form-control"
+                   placeholder={{Profile.name}} required="">
+        </div>
+
+        <div class="form-group col-md-6">
+            <label for="surname">surname</label>
+            <input type="text" ng-model="editProfile.surname" id="surname" class="form-control"
+                   placeholder={{Profile.surname}} required="">
+        </div>
+
+        <div class="form-group col-md-6">
+            <label for="phone">phone</label>
+            <input type="text" ng-model="editProfile.phone" id="phone" class="form-control"
+                   placeholder={{Profile.phone}} required="">
+        </div>
+
+        <div class="form-group col-md-6">
+            <label for="email">Email</label>
+            <input type="text" ng-model="editProfile.email" id="email" class="form-control"
+                   placeholder={{Profile.email}} required="">
+        </div>
+
+        <div class="form-group col-md-6">
+            <label for="birthday">birthday</label>
+            <input type="text" ng-model="editProfile.birthday" id="birthday" class="form-control"
+                   placeholder={{Profile.birthday}} required="">
+        </div>
+
+        <div class="form-group col-md-6">
+            <label for="gender">gender</label>
+            <input type="text" ng-model="editProfile.gender" id="gender" class="form-control"
+                   placeholder={{Profile.gender}} required="">
+        </div>
+
+        <div class="form-group col-md-6">
+            <label for="city">gender</label>
+            <input type="text" ng-model="editProfile.city" id="city" class="form-control"
+                   placeholder={{Profile.city}} required="">
+        </div>
+
+        <div>
+            <button class="btn btn-success" type="submit">Применить</button>
+        </div>
+    </form>
+</div>

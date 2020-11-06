@@ -43,7 +43,7 @@ public class ProductController {
     @PostMapping(consumes = "application/json", produces = "application/json")
     public Product createProduct(@RequestBody @Validated Product p, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            throw new ResourceCreationException("Invalid product");
+            throw new ResourceCreationException("Invalid new product");
         }
         if (p.getId() != null && productService.existsById(p.getId())) {
             throw new ResourceCreationException("Product with id: " + p.getId() + "already exist");
