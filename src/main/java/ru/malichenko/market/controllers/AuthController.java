@@ -53,7 +53,7 @@ public class AuthController {
         }
         Profile profile = new Profile();
         profile.setEmail(email);
-        profileService.save(profile);
+//        profileService.save(profile);
 
         User user = new User(username, encoder.encode(password), profile);
         user.setRoles(roleService.getRole("ROLE_USER"));

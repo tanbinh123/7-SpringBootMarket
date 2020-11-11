@@ -6,12 +6,16 @@ import javax.persistence.*;
 
 @Entity
 @Data
-@Table(name = "profile")
+@Table(name = "profiles")
 public class Profile {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
+
+    @OneToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
     @Column(name = "name")
     private String name;
@@ -33,7 +37,4 @@ public class Profile {
 
     @Column(name = "city")
     private String city;
-
-    @OneToOne(mappedBy = "profile")
-    private User user;
 }

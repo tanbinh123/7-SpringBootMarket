@@ -9,6 +9,7 @@ import ru.malichenko.market.entities.Profile;
 public class ProfileDto {
 
     private Long id;
+    private String username;
     private String name;
     private String surname;
     private String phone;
@@ -16,9 +17,13 @@ public class ProfileDto {
     private String birthday;
     private String gender;
     private String city;
+    private String confirmationPassword;
+
 
     public ProfileDto(Profile p) {
         this.id = p.getId();
+        this.username = p.getUser().getUsername();
+
         this.name = p.getName();
         this.surname = p.getSurname();
         this.phone = p.getPhone();

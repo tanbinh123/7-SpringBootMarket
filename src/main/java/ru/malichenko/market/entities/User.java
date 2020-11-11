@@ -26,16 +26,11 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Collection<Role> roles;
 
-    @OneToOne
-    @JoinColumn(name = "profile_id")
-    private Profile profile;
-
     public User() {
     }
 
     public User(String username, String encode, Profile profile) {
         this.username = username;
         this.password = encode;
-        this.profile = profile;
     }
 }

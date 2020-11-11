@@ -16,7 +16,7 @@ public class ProfileService {
         profileRepository.save(profile);
     }
 
-    public Profile findByUserId(Long id) {
+    public Optional<Profile> findByUserId(Long id) {
         return profileRepository.findByUserId(id);
     }
 
@@ -24,11 +24,15 @@ public class ProfileService {
         return profileRepository.existsById(id);
     }
 
-    public void saveOrUpdate(Profile p) {
-        profileRepository.save(p);
+    public Profile saveOrUpdate(Profile p) {
+        return profileRepository.save(p);
     }
 
     public Optional<Profile> findById(Long id) {
         return profileRepository.findById(id);
+    }
+
+    public Optional<Profile> findByUsername(String name) {
+        return profileRepository.findByUsername(name);
     }
 }
