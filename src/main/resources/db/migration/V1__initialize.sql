@@ -1,11 +1,14 @@
 create table users
 (
-    id       bigserial,
-    username varchar(30) not null,
-    password varchar(80) not null,
-    email    varchar(50) unique,
+    id         bigserial,
+    username   varchar(30) not null,
+    password   varchar(80) not null,
     primary key (id)
 );
+
+insert into users (username, password)
+values ('user', '$2a$04$Fx/SX9.BAvtPlMyIIqqFx.hLY2Xp8nnhpzvEEVINvVpwIPbA3v/.i'),
+       ('admin', '$2a$04$Fx/SX9.BAvtPlMyIIqqFx.hLY2Xp8nnhpzvEEVINvVpwIPbA3v/.i');
 
 create table roles
 (
@@ -28,14 +31,27 @@ values ('ROLE_USER'),
        ('ROLE_ADMIN'),
        ('SOMETHING');
 
-insert into users (username, password, email)
-values ('user', '$2a$04$Fx/SX9.BAvtPlMyIIqqFx.hLY2Xp8nnhpzvEEVINvVpwIPbA3v/.i', 'user@gmail.com'),
-       ('admin', '$2a$04$Fx/SX9.BAvtPlMyIIqqFx.hLY2Xp8nnhpzvEEVINvVpwIPbA3v/.i', 'admin@gmail.com');
-
 insert into users_roles (user_id, role_id)
 values (1, 1),
        (2, 1),
        (2, 2);
+
+create table profiles
+(
+    id       bigserial primary key,
+    user_id     bigint references users (id),
+    name     varchar(80),
+    surname  varchar(80),
+    phone    varchar(30),
+    email    varchar(50) unique,
+    birthday varchar(50),
+    gender   varchar(20),
+    city     varchar(80)
+);
+
+insert into profiles (user_id, name, surname, phone, email, birthday, gender, city)
+values (1, 'Bob', 'Smith', '+79214450101', 'user@gmail.com', 1984, 'male', 'SPb'),
+       (2, 'Adam', 'Smith', '+79214450102', 'admin@gmail.com', 1983, 'male', 'Paris');
 
 create table categories
 (

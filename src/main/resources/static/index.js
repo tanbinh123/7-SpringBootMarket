@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('app', ['ngRoute', 'ngStorage'])
+        .module('app', ['ngRoute', 'ngStorage']) //, 'angular-jwt'
         .config(config)
         .run(run);
 
@@ -34,6 +34,13 @@
             .when('/orders', {
                 templateUrl: 'orders/orders.html',
                 controller: 'ordersController'
+            })
+            .when('/profile', {
+                templateUrl: 'profile/profile.html',
+                controller: 'profileController'
+            })
+            .otherwise({
+                redirectTo: '/'
             });
 
         $httpProvider.interceptors.push(function ($q, $location) {
@@ -64,5 +71,25 @@
         if ($localStorage.currentUser) {
             $http.defaults.headers.common.Authorization = 'Bearer ' + $localStorage.currentUser.token;
         }
+
+        // $rootScope.$on('$locationChangeStart', function (event, next, current) {
+        //     let publicPages = ['/auth', '/', '/store'];
+        //     let restrictedPage = publicPages.indexOf($location.path()) === -1;
+        //     if (restrictedPage && !$localStorage.currentUser) {
+        //         $location.path('/auth');
+        //     }
+        // });
     }
 })();
+
+angular.module('app').controller('indexController', function ($scope, $http, $localStorage) {
+    const contextPath = 'http://localhost:8189/market';
+
+    $scope.isUserLoggedIn = function () {
+        if ($localStorage.currentUser) {
+            return true;
+        } else {
+            return false;
+        }
+    };
+});
