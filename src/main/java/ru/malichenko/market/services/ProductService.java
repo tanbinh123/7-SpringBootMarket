@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.malichenko.market.entities.Product;
 import ru.malichenko.market.repositories.ProductRepository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -19,6 +20,9 @@ public class ProductService {
     @Transactional(readOnly = true)
     public Page<Product> findAll(Specification<Product> spec, int page, int size) {
         return productRepository.findAll(spec, PageRequest.of(page, size));
+    }
+    public List<Product> findAll(){
+        return productRepository.findAll();
     }
 
     @Transactional(readOnly = true)
@@ -40,6 +44,10 @@ public class ProductService {
 
     public boolean existsById(Long id){
         return  productRepository.existsById(id);
+    }
+
+    public Product findByTitle(String title){
+        return productRepository.findByTitle(title);
     }
 
 }
