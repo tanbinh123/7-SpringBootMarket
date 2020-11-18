@@ -2,7 +2,7 @@ package ru.malichenko.market.dto;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import ru.malichenko.market.entities.OrderItem;
+import ru.malichenko.market.entities.OrderItemEntity;
 
 @Data
 @NoArgsConstructor
@@ -15,10 +15,10 @@ public class OrderItemDto {
     private int pricePerProduct;
     private int price;
 
-    public OrderItemDto(OrderItem o){
-        this.productId = o.getProduct().getId();
-        this.productTitle =o.getProduct().getTitle();
-        this.categoryTitle =o.getProduct().getCategory().getTitle();
+    public OrderItemDto(OrderItemEntity o){
+        this.productId = o.getProductEntity().getId();
+        this.productTitle =o.getProductEntity().getTitle();
+        this.categoryTitle =o.getProductEntity().getCategoryEntity().getTitle();
         this.quantity = o.getQuantity();
         this.price = o.getPrice();
         this.pricePerProduct = o.getPricePerProduct();

@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 import ru.malichenko.market.configs.JwtTokenUtil;
 import ru.malichenko.market.dto.JwtRequest;
 import ru.malichenko.market.dto.JwtResponse;
-import ru.malichenko.market.entities.Profile;
-import ru.malichenko.market.entities.User;
+import ru.malichenko.market.entities.ProfileEntity;
+import ru.malichenko.market.entities.UserEntity;
 import ru.malichenko.market.exceptions.MarketError;
 import ru.malichenko.market.services.ProfileService;
 import ru.malichenko.market.services.RoleService;
@@ -51,13 +51,13 @@ public class AuthController {
         if (userService.findByUsername(username).isPresent()) {
             return new ResponseEntity<>(new MarketError(HttpStatus.UNAUTHORIZED.value(), "Username: " + username + " already exist!"), HttpStatus.UNAUTHORIZED);
         }
-        Profile profile = new Profile();
-        profile.setEmail(email);
-//        profileService.save(profile);
+        ProfileEntity profileEntity = new ProfileEntity();
+        profileEntity.setEmail(email);
+//        profileService.save(profileEntity);
 
-        User user = new User(username, encoder.encode(password), profile);
-        user.setRoles(roleService.getRole("ROLE_USER"));
-        userService.saveNewUser(user);
-        return ResponseEntity.ok(user);
+        UserEntity userEntity = new UserEntity(username, encoder.encode(password), profileEntity);
+        userEntity.setRoleEntities(roleService.getRole("ROLE_USER"));
+        userService.saveNewUser(userEntity);
+        return ResponseEntity.ok(userEntity);
     }
 }

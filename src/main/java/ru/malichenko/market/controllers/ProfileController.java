@@ -6,8 +6,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import ru.malichenko.market.dto.ProfileDto;
-import ru.malichenko.market.entities.Profile;
-import ru.malichenko.market.entities.User;
+import ru.malichenko.market.entities.ProfileEntity;
+import ru.malichenko.market.entities.UserEntity;
 import ru.malichenko.market.exceptions.MarketError;
 import ru.malichenko.market.exceptions.ResourceNotFoundException;
 import ru.malichenko.market.services.ProfileService;
@@ -27,17 +27,17 @@ public class ProfileController {
     @GetMapping(produces = "application/json")
     public ProfileDto getCurrentProfile(Principal principal) {
 //        return profileService.findByUsername(principal.getName()).stream().map(ProfileDto::new).findAny();
-        Profile p = profileService.findByUsername(principal.getName()).orElseThrow(() -> new ResourceNotFoundException("Unable to find profile for current user"));
+        ProfileEntity p = profileService.findByUsername(principal.getName()).orElseThrow(() -> new ResourceNotFoundException("Unable to find profileEntity for current user"));
         return new ProfileDto(p);
     }
 
     @PutMapping(consumes = "application/json", produces = "application/json")
     public ResponseEntity<?> editProfile(Principal principal, @RequestBody ProfileDto profileDto) {
-        User currentUser = userService.findByUsername(principal.getName()).orElseThrow(() -> new ResourceNotFoundException("Unable to find current user"));
-        if (profileDto.getConfirmationPassword() == null || !passwordEncoder.matches(profileDto.getConfirmationPassword(), currentUser.getPassword())) {
+        UserEntity currentUserEntity = userService.findByUsername(principal.getName()).orElseThrow(() -> new ResourceNotFoundException("Unable to find current user"));
+        if (profileDto.getConfirmationPassword() == null || !passwordEncoder.matches(profileDto.getConfirmationPassword(), currentUserEntity.getPassword())) {
             new ResponseEntity<>(new MarketError(HttpStatus.BAD_REQUEST.value(), "Incorrect password"), HttpStatus.BAD_REQUEST);
         }
-        Profile p = profileService.findById(profileDto.getId()).orElseThrow(() -> new ResourceNotFoundException("Unable to find profile for current user"));
+        ProfileEntity p = profileService.findById(profileDto.getId()).orElseThrow(() -> new ResourceNotFoundException("Unable to find profileEntity for current user"));
         p.setName(profileDto.getName());
         p.setSurname(profileDto.getSurname());
         p.setPhone(profileDto.getPhone());

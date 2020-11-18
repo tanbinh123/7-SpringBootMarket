@@ -13,7 +13,7 @@ import java.util.List;
 @Table(name = "orders")
 @Data
 @NoArgsConstructor
-public class Order {
+public class OrderEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -30,25 +30,25 @@ public class Order {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private User user;
+    private UserEntity userEntity;
 
-    @OneToMany(mappedBy = "order")
+    @OneToMany(mappedBy = "orderEntity")
     @Cascade(org.hibernate.annotations.CascadeType.ALL)
-    private List<OrderItem> items;
+    private List<OrderItemEntity> items;
 
     @Column(name = "price")
     private int price;
 
-    public Order (User user, Cart cart, String address, String phone, String receiverName){
-        this.user = user;
+    public OrderEntity(UserEntity userEntity, Cart cart, String address, String phone, String receiverName){
+        this.userEntity = userEntity;
         this.receiverName = receiverName;
         this.price = cart.getPrice();
         this.address = address;
         this.phone = phone;
         this.items = new ArrayList<>();
-        cart.getItems().stream().forEach(oi -> {
-            oi.setOrder(this);
-            items.add(oi);
+        cart.getItems().forEach(orderItemEntity -> {
+            orderItemEntity.setOrderEntity(this);
+            items.add(orderItemEntity);
         });
     }
 }

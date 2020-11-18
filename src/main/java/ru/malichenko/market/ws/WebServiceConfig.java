@@ -23,18 +23,23 @@ public class WebServiceConfig extends WsConfigurerAdapter {
         return new ServletRegistrationBean(servlet, "/ws/*");
     }
 
-    @Bean(name = "market")
-    public DefaultWsdl11Definition defaultWsdl11Definition(XsdSchema productsSchema, XsdSchema ordersSchema) {
+    @Bean(name = "products")
+    public DefaultWsdl11Definition productsWsdl11Definition(XsdSchema productsSchema) {
         DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
         wsdl11Definition.setPortTypeName("ProductsPort");
         wsdl11Definition.setLocationUri("/ws");
         wsdl11Definition.setTargetNamespace("http://www.malichenko.ru/market/ws/products");
         wsdl11Definition.setSchema(productsSchema);
+        return wsdl11Definition;
+    }
+
+    @Bean(name = "orders")
+    public DefaultWsdl11Definition ordersWsdl11Definition(XsdSchema ordersSchema) {
+        DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
         wsdl11Definition.setPortTypeName("OrdersPort");
         wsdl11Definition.setLocationUri("/ws");
         wsdl11Definition.setTargetNamespace("http://www.malichenko.ru/market/ws/orders");
         wsdl11Definition.setSchema(ordersSchema);
-
         return wsdl11Definition;
     }
 

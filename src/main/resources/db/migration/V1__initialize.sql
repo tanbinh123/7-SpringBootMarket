@@ -26,7 +26,7 @@ CREATE TABLE users_roles
     foreign key (role_id) references roles (id)
 );
 
-insert into roles (name)
+insert into roles(name)
 values ('ROLE_USER'),
        ('ROLE_ADMIN'),
        ('SOMETHING');

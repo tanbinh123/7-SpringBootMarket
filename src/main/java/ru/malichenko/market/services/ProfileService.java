@@ -3,7 +3,7 @@ package ru.malichenko.market.services;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import ru.malichenko.market.entities.Profile;
+import ru.malichenko.market.entities.ProfileEntity;
 import ru.malichenko.market.repositories.ProfileRepository;
 
 import java.util.Optional;
@@ -12,27 +12,27 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class ProfileService {
     private final ProfileRepository profileRepository;
-    public void save(Profile profile) {
-        profileRepository.save(profile);
+    public void save(ProfileEntity profileEntity) {
+        profileRepository.save(profileEntity);
     }
 
-    public Optional<Profile> findByUserId(Long id) {
-        return profileRepository.findByUserId(id);
+    public Optional<ProfileEntity> findByUserId(Long id) {
+        return profileRepository.findByUserEntityId(id);
     }
 
     public boolean existsById(Long id) {
         return profileRepository.existsById(id);
     }
 
-    public Profile saveOrUpdate(Profile p) {
+    public ProfileEntity saveOrUpdate(ProfileEntity p) {
         return profileRepository.save(p);
     }
 
-    public Optional<Profile> findById(Long id) {
+    public Optional<ProfileEntity> findById(Long id) {
         return profileRepository.findById(id);
     }
 
-    public Optional<Profile> findByUsername(String name) {
+    public Optional<ProfileEntity> findByUsername(String name) {
         return profileRepository.findByUsername(name);
     }
 }

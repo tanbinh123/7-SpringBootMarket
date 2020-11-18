@@ -14,12 +14,12 @@
     <xs:element name="getOrdersByUserResponse">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="allOrders" maxOccurs="unbounded" type="tns:orders"/>
+                <xs:element name="allOrders" maxOccurs="unbounded" type="tns:order"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
 
-    <xs:complexType name="orders">
+    <xs:complexType name="order">
         <xs:sequence>
             <xs:element name="items" maxOccurs="unbounded"  type="tns:OrderItem"/>
             <xs:element name="price" type="xs:int"/>

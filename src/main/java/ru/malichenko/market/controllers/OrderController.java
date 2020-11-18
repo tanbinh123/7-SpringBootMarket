@@ -5,8 +5,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import ru.malichenko.market.dto.CartDto;
 import ru.malichenko.market.dto.OrderDto;
-import ru.malichenko.market.entities.Order;
-import ru.malichenko.market.entities.User;
+import ru.malichenko.market.entities.OrderEntity;
+import ru.malichenko.market.entities.UserEntity;
 import ru.malichenko.market.exceptions.ResourceNotFoundException;
 import ru.malichenko.market.services.OrderService;
 import ru.malichenko.market.services.UserService;
@@ -40,9 +40,9 @@ public class OrderController {
                              @RequestParam(name = "receiverName") String receiverName,
                              @RequestParam(name = "phone") String phone,
                              @RequestParam(name = "address") String address) {
-        User user = userService.findByUsername(principal.getName()).orElseThrow(() -> new ResourceNotFoundException("Unable to create order for user: " + principal.getName() + ". User doesn't exist"));
-        Order order = new Order(user, cart, address, phone, receiverName);
-        orderService.save(order);
+        UserEntity userEntity = userService.findByUsername(principal.getName()).orElseThrow(() -> new ResourceNotFoundException("Unable to create order for user: " + principal.getName() + ". User doesn't exist"));
+        OrderEntity orderEntity = new OrderEntity(userEntity, cart, address, phone, receiverName);
+        orderService.save(orderEntity);
         cart.clear();
         //return "redirect: /api/v1/orders"
     }

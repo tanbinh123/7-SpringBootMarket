@@ -38,9 +38,9 @@ import java.util.List;
 public class GetOrdersByUserResponse {
 
     @XmlElement(required = true)
-    protected List<Orders> allOrders;
+    protected List<Order> allOrders;
 
-    public void setAllOrders(List<Orders> allOrders) {
+    public void setAllOrders(List<Order> allOrders) {
         this.allOrders = allOrders;
     }
 
@@ -62,11 +62,11 @@ public class GetOrdersByUserResponse {
      *
      * <p>
      * Objects of the following type(s) are allowed in the list
-     * {@link Orders }
+     * {@link Order }
      */
-    public List<Orders> getAllOrders() {
+    public List<Order> getAllOrders() {
         if (allOrders == null) {
-            allOrders = new ArrayList<Orders>();
+            allOrders = new ArrayList<Order>();
         }
         return this.allOrders;
     }

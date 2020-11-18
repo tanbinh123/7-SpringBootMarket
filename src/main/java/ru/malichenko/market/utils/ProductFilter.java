@@ -2,14 +2,14 @@ package ru.malichenko.market.utils;
 
 import lombok.Getter;
 import org.springframework.data.jpa.domain.Specification;
-import ru.malichenko.market.entities.Product;
+import ru.malichenko.market.entities.ProductEntity;
 import ru.malichenko.market.repositories.specifications.ProductSpecifications;
 
 import java.util.Map;
 
 @Getter
 public class ProductFilter {
-    private Specification<Product> spec;
+    private Specification<ProductEntity> spec;
 
     public ProductFilter(Map<String, String> params) {
         spec = Specification.where(null);

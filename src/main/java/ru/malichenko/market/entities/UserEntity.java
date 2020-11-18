@@ -8,7 +8,7 @@ import java.util.Collection;
 @Entity
 @Data
 @Table(name = "users")
-public class User {
+public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -24,12 +24,12 @@ public class User {
     @JoinTable(name = "users_roles",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private Collection<Role> roles;
+    private Collection<RoleEntity> roleEntities;
 
-    public User() {
+    public UserEntity() {
     }
 
-    public User(String username, String encode, Profile profile) {
+    public UserEntity(String username, String encode, ProfileEntity profileEntity) {
         this.username = username;
         this.password = encode;
     }

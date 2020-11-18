@@ -8,7 +8,7 @@ import javax.persistence.*;
 @Table(name = "order_items")
 @Data
 @NoArgsConstructor
-public class OrderItem {
+public class OrderItemEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,11 +17,11 @@ public class OrderItem {
 
     @ManyToOne
     @JoinColumn(name = "product_id")
-    private Product product;
+    private ProductEntity productEntity;
 
     @ManyToOne
     @JoinColumn(name = "order_id")
-    private Order order;
+    private OrderEntity orderEntity;
 
     @Column(name = "quantity")
     private int quantity;
@@ -32,11 +32,11 @@ public class OrderItem {
     @Column(name = "price")
     private int price;
 
-    public OrderItem(Product p){
-        this.product =p;
+    public OrderItemEntity(ProductEntity productEntity){
+        this.productEntity = productEntity;
         this.quantity = 1;
-        this.price = p.getPrice();
-        this.pricePerProduct = p.getPrice();
+        this.price = productEntity.getPrice();
+        this.pricePerProduct = productEntity.getPrice();
     }
 
     public void incrementQuantity(){

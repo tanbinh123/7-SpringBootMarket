@@ -7,7 +7,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ru.malichenko.market.dto.ProductDto;
-import ru.malichenko.market.entities.Product;
+import ru.malichenko.market.entities.ProductEntity;
 import ru.malichenko.market.exceptions.ResourceCreationException;
 import ru.malichenko.market.exceptions.ResourceNotFoundException;
 import ru.malichenko.market.services.ProductService;
@@ -30,18 +30,18 @@ public class ProductController {
         }
         System.out.println("params = "+params.toString());
         ProductFilter productFilter = new ProductFilter(params);
-        Page<Product> content = productService.findAll(productFilter.getSpec(), page - 1, 5);
+        Page<ProductEntity> content = productService.findAll(productFilter.getSpec(), page - 1, 5);
         Page<ProductDto> out = new PageImpl<>(content.getContent().stream().map(ProductDto::new).collect(Collectors.toList()), content.getPageable(), content.getTotalElements());
         return out;
     }
 
     @GetMapping(value = "/{id}", produces = "application/json")
-    public Product getProductById(@PathVariable Long id) {
+    public ProductEntity getProductById(@PathVariable Long id) {
         return productService.findById(id).orElseThrow(() -> new ResourceNotFoundException("Unable to find product with id: " + id ));
     }
 
     @PostMapping(consumes = "application/json", produces = "application/json")
-    public Product createProduct(@RequestBody @Validated Product p, BindingResult bindingResult) {
+    public ProductEntity createProduct(@RequestBody @Validated ProductEntity p, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             throw new ResourceCreationException("Invalid new product");
         }
@@ -52,7 +52,7 @@ public class ProductController {
     }
 
     @PutMapping(consumes = "application/json", produces = "application/json")
-    public Product updateProduct(@RequestBody Product p) {
+    public ProductEntity updateProduct(@RequestBody ProductEntity p) {
         return productService.saveOrUpdate(p);
     }
 

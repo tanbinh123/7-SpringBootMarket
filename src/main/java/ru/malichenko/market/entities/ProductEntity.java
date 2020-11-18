@@ -11,7 +11,7 @@ import javax.validation.constraints.Size;
 @Table(name = "products")
 @Data
 @NoArgsConstructor
-public class Product {
+public class ProductEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -27,5 +27,5 @@ public class Product {
 
     @ManyToOne
     @JoinColumn(name = "category_id")
-    private Category category;
+    private CategoryEntity categoryEntity;
 }

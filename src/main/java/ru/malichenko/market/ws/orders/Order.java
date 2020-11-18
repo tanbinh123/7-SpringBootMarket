@@ -46,7 +46,7 @@ import java.util.stream.Collectors;
     "price",
     "address"
 })
-public class Orders {
+public class Order {
 
     @XmlElement(required = true)
     protected List<OrderItem> items;
@@ -55,10 +55,10 @@ public class Orders {
     @XmlElement(required = true)
     protected String address;
 
-    public Orders() {
+    public Order() {
     }
 
-    public Orders(OrderDto orderDto) {
+    public Order(OrderDto orderDto) {
         this.items = orderDto.getItems().stream().map(OrderItem::new).collect(Collectors.toList());
         this.price = orderDto.getPrice();
         this.address = orderDto.getAddress();
@@ -141,4 +141,7 @@ public class Orders {
         this.address = value;
     }
 
+    public void setItems(List<OrderItem> items) {
+        this.items = items;
+    }
 }

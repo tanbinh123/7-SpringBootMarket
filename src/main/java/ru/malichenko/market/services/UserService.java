@@ -9,8 +9,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.malichenko.market.entities.Role;
-import ru.malichenko.market.entities.User;
+import ru.malichenko.market.entities.RoleEntity;
+import ru.malichenko.market.entities.UserEntity;
 import ru.malichenko.market.repositories.UserRepository;
 
 import java.util.Collection;
@@ -22,23 +22,23 @@ import java.util.stream.Collectors;
 public class UserService implements UserDetailsService {
     private final UserRepository userRepository;
 
-    public void saveNewUser(User user) {
-        userRepository.save(user);
+    public void saveNewUser(UserEntity userEntity) {
+        userRepository.save(userEntity);
     }
 
-    public Optional<User> findByUsername(String username) {
-        return userRepository.findByUsername(username);
+    public Optional<UserEntity> findByUsername(String username) {
+        return userRepository.findUserEntityByUsername(username);
     }
 
     @Override
     @Transactional
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = findByUsername(username).orElseThrow(()-> new UsernameNotFoundException(String.format("User '%s' not found", username)));
-        return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), mapRolesToAuthorities(user.getRoles()));
+        UserEntity userEntity = findByUsername(username).orElseThrow(()-> new UsernameNotFoundException(String.format("User '%s' not found", username)));
+        return new org.springframework.security.core.userdetails.User(userEntity.getUsername(), userEntity.getPassword(), mapRolesToAuthorities(userEntity.getRoleEntities()));
     }
 
-    private Collection<? extends GrantedAuthority> mapRolesToAuthorities(Collection<Role> roles) {
-        return roles.stream().map(role -> new SimpleGrantedAuthority(role.getName())).collect(Collectors.toList());
+    private Collection<? extends GrantedAuthority> mapRolesToAuthorities(Collection<RoleEntity> roleEntities) {
+        return roleEntities.stream().map(roleEntity -> new SimpleGrantedAuthority(roleEntity.getName())).collect(Collectors.toList());
     }
 
 }

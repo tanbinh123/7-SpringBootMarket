@@ -14,23 +14,24 @@
     <xs:element name="getProductByTitleResponse">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="product" type="tns:product"/>
+                <xs:element name="productEntity" type="tns:productEntity"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
 
-    <!--    <xs:element name="getAllProductsRequest">-->
-    <!--    </xs:element>-->
+        <xs:element name="getAllProductsRequest">
+            <xs:complexType/>
+        </xs:element>
 
     <xs:element name="getAllProductsResponse">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="allProduct" maxOccurs="unbounded" type="tns:product"/>
+                <xs:element name="allProduct" maxOccurs="unbounded" type="tns:productEntity"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
 
-    <xs:complexType name="product">
+    <xs:complexType name="productEntity">
         <xs:sequence>
             <xs:element name="id" type="xs:long"/>
             <xs:element name="title" type="xs:string"/>
