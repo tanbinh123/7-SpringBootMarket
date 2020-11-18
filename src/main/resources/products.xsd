@@ -1,0 +1,43 @@
+<xs:schema
+        xmlns:xs="http://www.w3.org/2001/XMLSchema"
+        xmlns:tns="http://www.malichenko.ru/market/ws/products"
+        targetNamespace="http://www.malichenko.ru/market/ws/products" elementFormDefault="qualified">
+
+    <xs:element name="getProductByTitleRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="title" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getProductByTitleResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="productEntity" type="tns:productEntity"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+        <xs:element name="getAllProductsRequest">
+            <xs:complexType/>
+        </xs:element>
+
+    <xs:element name="getAllProductsResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="allProduct" maxOccurs="unbounded" type="tns:productEntity"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="productEntity">
+        <xs:sequence>
+            <xs:element name="id" type="xs:long"/>
+            <xs:element name="title" type="xs:string"/>
+            <xs:element name="price" type="xs:int"/>
+            <xs:element name="categoryTitle" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+
+</xs:schema>

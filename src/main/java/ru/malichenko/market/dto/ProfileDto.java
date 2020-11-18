@@ -2,7 +2,7 @@ package ru.malichenko.market.dto;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import ru.malichenko.market.entities.Profile;
+import ru.malichenko.market.entities.ProfileEntity;
 
 @Data
 @NoArgsConstructor
@@ -20,9 +20,9 @@ public class ProfileDto {
     private String confirmationPassword;
 
 
-    public ProfileDto(Profile p) {
+    public ProfileDto(ProfileEntity p) {
         this.id = p.getId();
-        this.username = p.getUser().getUsername();
+        this.username = p.getUserEntity().getUsername();
 
         this.name = p.getName();
         this.surname = p.getSurname();

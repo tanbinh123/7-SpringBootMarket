@@ -2,7 +2,7 @@ package ru.malichenko.market.services;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import ru.malichenko.market.entities.Category;
+import ru.malichenko.market.entities.CategoryEntity;
 import ru.malichenko.market.repositories.CategoryRepository;
 
 import java.util.List;
@@ -12,7 +12,7 @@ import java.util.List;
 public class CategoryService {
     private final CategoryRepository categoryRepository;
 
-    public List<Category> findAll() {
+    public List<CategoryEntity> findAll() {
         return categoryRepository.findAll();
     }
 }

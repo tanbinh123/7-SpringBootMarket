@@ -3,7 +3,7 @@ package ru.malichenko.market.services;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import ru.malichenko.market.entities.Role;
+import ru.malichenko.market.entities.RoleEntity;
 import ru.malichenko.market.repositories.RoleRepository;
 
 import java.util.ArrayList;
@@ -14,14 +14,14 @@ import java.util.List;
 public class RoleService {
     private final RoleRepository roleRepository;
 
-    public Role findByRoleName(String role_user) {
-        return roleRepository.findRoleByName(role_user);
+    public RoleEntity findByRoleName(String role_user) {
+        return roleRepository.findRoleEntitiesByName(role_user);
     }
 
-    public List<Role> getRole(String role){
-        List<Role> roleList = new ArrayList<>();
-        roleList.add(findByRoleName(role));
-        return roleList;
+    public List<RoleEntity> getRole(String role){
+        List<RoleEntity> roleEntityList = new ArrayList<>();
+        roleEntityList.add(findByRoleName(role));
+        return roleEntityList;
     }
 
 }
