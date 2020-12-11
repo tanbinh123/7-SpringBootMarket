@@ -32,6 +32,7 @@ public class UserServiceTest {
                 .findByUsername("John");
 
         ProfileEntity userJohn = profileService.findByUsername("John").get();
+//        ProfileEntity user = profileService.findByUsername("John").get();
         Assertions.assertNotNull(userJohn);
         Assertions.assertEquals("john@mail.ru", userJohn.getEmail());
         Mockito.verify(profileRepository, Mockito.times(1)).findByUsername(ArgumentMatchers.eq("John"));
