@@ -6,6 +6,7 @@ import org.springframework.boot.test.autoconfigure.json.JsonTest;
 import org.springframework.boot.test.json.JacksonTester;
 import ru.malichenko.market.entities.CategoryEntity;
 import ru.malichenko.market.entities.ProductEntity;
+import ru.malichenko.market.entities.RoleEntity;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -29,37 +30,41 @@ public class JsonTests {
         // }
         assertThat(jackson.write(productEntity))
                 .hasJsonPathNumberValue("$.id")
-                .extractingJsonPathStringValue("$.id").isEqualTo(1L);
+                .extractingJsonPathNumberValue("$.id").isEqualTo(1);
         assertThat(jackson.write(productEntity))
-                .hasJsonPathNumberValue("$.title")
+                .hasJsonPathStringValue("$.title")
                 .extractingJsonPathStringValue("$.title").isEqualTo("Milk");
         assertThat(jackson.write(productEntity))
                 .hasJsonPathNumberValue("$.price")
-                .extractingJsonPathStringValue("$.price").isEqualTo(123);
+                .extractingJsonPathNumberValue("$.price").isEqualTo(123);
 
     }
 
-//    @Test
-//    public void jsonSerializationTest() throws Exception {
-//        RoleEntity role = new RoleEntity();
-//        role.setId(1L);
-//        role.setName("USER");
-//        // {
-//        //   "id": 1,
-//        //   "name": "USER"
-//        // }
-//        assertThat(this.jackson.write(role)).hasJsonPathNumberValue("$.id");
-//        assertThat(this.jackson.write(role)).extractingJsonPathStringValue("$.name").isEqualTo("USER");
-//    }
-//
-//    @Test
-//    public void jsonDeserializationTest() throws Exception {
-//        String content = "{\"id\": 2,\"name\":\"ADMIN\"}";
-//        RoleEntity realRole = new RoleEntity();
-//        realRole.setId(2L);
-//        realRole.setName("ADMIN");
-//
-//        assertThat(this.jackson.parse(content)).isEqualTo(realRole);
-//        assertThat(this.jackson.parseObject(content).getName()).isEqualTo("ADMIN");
-//    }
+
+    @Autowired
+    private JacksonTester<RoleEntity> jacksonRole;
+
+    @Test
+    public void jsonSerializationTest() throws Exception {
+        RoleEntity role = new RoleEntity();
+        role.setId(1L);
+        role.setName("USER");
+        // {
+        //   "id": 1,
+        //   "name": "USER"
+        // }
+        assertThat(jacksonRole.write(role)).hasJsonPathNumberValue("$.id")
+        .extractingJsonPathStringValue("$.name").isEqualTo("USER");
+    }
+
+    @Test
+    public void jsonDeserializationTest() throws Exception {
+        String content = "{\"id\": 2,\"name\":\"ADMIN\"}";
+        RoleEntity realRole = new RoleEntity();
+        realRole.setId(2L);
+        realRole.setName("ADMIN");
+
+        assertThat(jacksonRole.parse(content)).isEqualTo(realRole);
+        assertThat(jacksonRole.parseObject(content).getName()).isEqualTo("ADMIN");
+    }
 }
