@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+    <meta charset="utf-8"/>
+
+    <title>Cart</title>
+
+    <link rel="icon" type="image/png" th:href="@{/favicon.ico}"/>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+
+<div class="container">
+    <div th:replace="~{navigation :: navigation(Cart)}"/>
+
+    <h1>Корзина</h1>
+
+    <span th:if="${items.size() == 0}">Ваша корзина пуста</span>
+    <table th:if="${items.size() > 0}" class="table table-hover">
+        <thead class="thead-dark">
+        <tr>
+            <th>Название товара</th>
+            <th>Количество</th>
+            <th>Цена</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="item : ${items}">
+            <td th:text="${item.product.title}"/>
+            <td th:text="${item.quantity}"/>
+            <td th:text="${item.totalPrice}"/>
+        </tr>
+        </tbody>
+    </table>
+
+    <div th:if="${items.size() > 0}">
+        <form th:action="@{/orders/create}" method="GET" class="form-horizontal">
+            <h2>Форма оформления заказа</h2>
+
+            <div style="margin-bottom: 25px" class="input-group">
+                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                <input th:value="${phone != null} ? ${phone}" class="form-control" th:name="phone" type="text"
+                       th:placeholder="#{order.phone}">
+            </div>
+
+            <div style="margin-bottom: 25px" class="input-group">
+                <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                <input th:value="${firstName != null} ? ${firstName}" class="form-control" th:name="firstName" type="text"
+                       th:placeholder="#{order.first.name}">
+            </div>
+
+            <div style="margin-bottom: 25px" class="input-group">
+                <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                <input th:value="${address != null} ? ${address}" class="form-control" th:name="address" type="text"
+                       th:placeholder="#{order.address}">
+            </div>
+
+            <div style="margin-top: 10px" class="form-group">
+                <div class="col-sm-6 controls">
+                    <button type="submit" class="btn btn-warning">Оформить заказ</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>
