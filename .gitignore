@@ -1,3 +1,7 @@
+#/src/main/resources/application.yaml
+#/src/main/resources/application-h2.yaml
+/src/main/resources/secured.properties
+
 HELP.md
 target/
 !.mvn/wrapper/maven-wrapper.jar
@@ -31,3 +35,4 @@ build/
 
 ### VS Code ###
 .vscode/
+

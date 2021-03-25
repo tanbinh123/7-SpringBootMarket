@@ -17,7 +17,7 @@ public class ProductSpecifications {
     }
 
     public static Specification<ProductEntity> categoryIdIs(Long category) {
-        return (Specification<ProductEntity>) (root, criteriaQuery, criteriaBuilder) -> criteriaBuilder.equal(root.get("category").get("id"), category);
+        return (Specification<ProductEntity>) (root, criteriaQuery, criteriaBuilder) -> criteriaBuilder.equal(root.get("categoryEntity").get("id"), category);
     }
 
 
