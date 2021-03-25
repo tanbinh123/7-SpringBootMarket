@@ -14,9 +14,3 @@ spring:
       hibernate:
 #        format_sql: true
         dialect: org.hibernate.dialect.PostgreSQL94Dialect
-jwt:
-  secret: tg5g98h45g98h45g9845hg98hf9834hf9834hjheriheriuher9g8h384y5934yhhtertg
-paypal:
-  mode: sandbox
-  client.id: ASkns6BEShgsBEp1M_IsHDYtc_HZpahcqR9a5i9fbCHfOflYDjC53PwlIHfmO7MQN9gpJGuLciJV6xSz
-  client.secret: EIPcR9cCCHoHhobW3EZ2DhbRhLS6M3Vz588mXV4TK-W7KyAI3NDrSEyKlb6dhRMggB617xURhvqyA8y6
