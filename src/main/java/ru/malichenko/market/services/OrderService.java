@@ -51,6 +51,10 @@ public class OrderService {
         return orderRepository.save(orderEntity);
     }
 
+    public OrderEntity findById(Long id) {
+        return orderRepository.findById(id).orElseThrow();
+    }
+
     @Transactional(readOnly = true)
     public List<Order> getAllSOAPOrdersByUsername(String username) {
         return orderRepository.findAllOrderEntityByUsername(username).stream()

@@ -3,6 +3,8 @@ server:
   servlet:
     context-path: /market
 spring:
+  flyway:
+    locations: classpath:/db/testdata
   datasource:
     driver-class-name: org.h2.Driver
     url: jdbc:h2:mem:mydatabase;MODE=PostgreSQL

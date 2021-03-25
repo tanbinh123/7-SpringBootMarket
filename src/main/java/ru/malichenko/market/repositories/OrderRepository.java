@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 import ru.malichenko.market.entities.OrderEntity;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface OrderRepository extends JpaRepository<OrderEntity, Long> {
@@ -14,4 +15,5 @@ public interface OrderRepository extends JpaRepository<OrderEntity, Long> {
 
     @Query("select o from OrderEntity o join fetch o.items where o.userEntity.username = ?1")//данные дублируются
     List<OrderEntity> findAllOrderEntityByUsernameWithOrderItems(String username);
+
 }
